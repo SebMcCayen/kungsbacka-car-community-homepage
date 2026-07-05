@@ -1,0 +1,5 @@
+{
+  "_instruktioner": "Denna fil fylls i AUTOMATISKT av GitHub Action-flödet (.github/workflows/instagram.yml) som hämtar de senaste inläggen från @kungsbackacarcommunity med Instaloader. Du kan också fylla i den manuellt: image = sökväg till en bild i repot (t.ex. assets/instagram/minbild.jpg), caption = kort text, url = länk till inlägget. Så länge posts är tom visar sidan stiliserade platshållare.",
+  "updated": null,
+  "posts": []
+}

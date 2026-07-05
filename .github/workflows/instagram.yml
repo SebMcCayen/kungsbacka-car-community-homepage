@@ -1,0 +1,38 @@
+name: Uppdatera Instagram-flödet
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # varje dag 05:00 UTC (~07:00 svensk tid)
+  workflow_dispatch:       # gör att du kan köra manuellt via Actions-fliken
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hämta repot
+        uses: actions/checkout@v4
+
+      - name: Sätt upp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installera beroenden
+        run: pip install instaloader requests
+
+      - name: Hämta senaste Instagram-inläggen
+        env:
+          IG_SESSIONID: ${{ secrets.IG_SESSIONID }}
+        run: python scripts/fetch_instagram.py
+        continue-on-error: true   # ett misslyckat försök ska inte rödmarkera repot
+
+      - name: Committa ändringar
+        run: |
+          git config user.name "kcc-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/instagram.json assets/instagram || true
+          git diff --cached --quiet || git commit -m "Uppdatera Instagram-flödet [automatiskt]"
+          git push
