@@ -1,0 +1,29 @@
+{
+  "_instruktioner": "Lägg till era Facebook-event här. Sidan visar automatiskt bara KOMMANDE event, sorterade efter datum — gamla event kan lämnas kvar, de filtreras bort. Fält: title (rubrik), date (ÅÅÅÅ-MM-DD), time (HH:MM), place (plats), desc (kort beskrivning), url (länk till Facebook-eventet). Redigera filen direkt på GitHub (pennikonen) → Commit changes → sidan uppdateras vid nästa cPanel-synk.",
+  "events": [
+    {
+      "title": "Kvällscruising genom Kungsbacka",
+      "date": "2026-07-10",
+      "time": "19:00",
+      "place": "Kungsbacka station",
+      "desc": "Samling vid stationen, sedan rullar vi kolonn genom stan och ut mot kusten.",
+      "url": "https://www.facebook.com/groups/794040558638195/events"
+    },
+    {
+      "title": "Söndagsträff — visa upp bygget",
+      "date": "2026-07-19",
+      "time": "14:00",
+      "place": "Kungsmässan",
+      "desc": "Öppen parkeringsträff. Ta med fikat, öppna huven och snacka bil.",
+      "url": "https://www.facebook.com/groups/794040558638195/events"
+    },
+    {
+      "title": "Sommarmeet 2026",
+      "date": "2026-08-01",
+      "time": "12:00",
+      "place": "Meddelas i gruppen",
+      "desc": "Säsongens största träff — mer info i Facebook-eventet.",
+      "url": "https://www.facebook.com/groups/794040558638195/events"
+    }
+  ]
+}

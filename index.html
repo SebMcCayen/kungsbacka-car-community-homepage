@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kungsbacka Car Community</title>
+<meta name="description" content="Kungsbacka Car Community — en community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap.">
+<link rel="icon" href="assets/logo-symbol.png">
+<style>
+  @font-face { font-family: 'RobotoSlab'; src: url('assets/RobotoSlab.woff') format('woff'); font-weight: 400 700; font-display: swap; }
+  @font-face { font-family: 'SourceSans'; src: url('assets/SourceSans.otf') format('opentype'); font-display: swap; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; }
+
+  @keyframes kccTrail { 0% { transform: translateX(-30vw); opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(130vw); opacity: 0; } }
+  @keyframes kccTrailR { 0% { transform: translateX(130vw); opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(-30vw); opacity: 0; } }
+  @keyframes kccFloat { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+  @keyframes kccScroll { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+
+  .kcc-reveal { opacity: 0; transform: translateY(36px); transition: opacity 1s ease, transform 1s cubic-bezier(.16,1,.3,1); }
+  .kcc-reveal.kcc-in { opacity: 1; transform: translateY(0); }
+
+  /* ── hover states (from the design's style-hover) ── */
+  .kcc-navlink { color: #3c3c3c; text-decoration: none; transition: color .3s ease; }
+  .kcc-navlink:hover { color: #c9922e; }
+
+  .kcc-navcta { transition: box-shadow .3s ease; }
+  .kcc-navcta:hover { box-shadow: 0 6px 26px rgba(236,180,76,.7); }
+
+  .kcc-hero-cta { transition: box-shadow .3s ease, transform .3s ease; }
+  .kcc-hero-cta:hover { box-shadow: 0 10px 34px rgba(236,180,76,.75); transform: translateY(-2px); }
+
+  .kcc-hero-ghost { transition: border-color .3s ease, color .3s ease; }
+  .kcc-hero-ghost:hover { border-color: #c9922e; color: #c9922e; }
+
+  .kcc-card { transition: box-shadow .4s ease, border-color .4s ease, transform .4s ease; }
+  .kcc-card:hover { border-color: #ecb44c; box-shadow: 0 12px 38px rgba(236,180,76,.25); transform: translateY(-3px); }
+
+  .kcc-event { transition: box-shadow .4s ease, border-color .4s ease, transform .4s ease; }
+  .kcc-event:hover { border-color: #ecb44c; box-shadow: 0 12px 38px rgba(236,180,76,.28); transform: translateY(-3px); }
+
+  .kcc-event-all { transition: background .3s ease, box-shadow .3s ease; }
+  .kcc-event-all:hover { background: rgba(236,180,76,.12); box-shadow: 0 8px 26px rgba(236,180,76,.3); }
+
+  .kcc-shop-cta { transition: box-shadow .3s ease, transform .3s ease; }
+  .kcc-shop-cta:hover { box-shadow: 0 12px 38px rgba(236,180,76,.7); transform: translateY(-2px); }
+
+  .kcc-shop-tile { transition: box-shadow .4s ease, transform .4s ease; }
+  .kcc-shop-tile-lg:hover { box-shadow: 0 18px 50px rgba(236,180,76,.4); transform: translateY(-3px); }
+  .kcc-shop-tile-sm:hover { box-shadow: 0 16px 44px rgba(236,180,76,.4); transform: translateY(-3px); }
+
+  .kcc-partner { transition: box-shadow .4s ease, border-color .4s ease, transform .4s ease; }
+  .kcc-partner:hover { border-color: #ecb44c; box-shadow: 0 12px 38px rgba(236,180,76,.22); transform: translateY(-3px); }
+
+  .kcc-join-cta { transition: box-shadow .3s ease, transform .3s ease; }
+  .kcc-join-cta:hover { box-shadow: 0 14px 44px rgba(236,180,76,.8); transform: translateY(-2px); }
+
+  .kcc-flink { transition: color .3s ease; }
+  .kcc-flink:hover { color: #c9922e; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .kcc-reveal { transition: none; opacity: 1; transform: none; }
+    [style*="kccFloat"] { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div style="font-family: 'SourceSans', 'Segoe UI', sans-serif; background: #ffffff; color: #3c3c3c; overflow-x: hidden;">
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,0)); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);">
+    <a id="kcc-brand" href="#hem" style="display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .5s ease, transform .5s ease;">
+      <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 16px; color: #040414; letter-spacing: .03em;">Kungsbacka Car Community</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 26px; font-size: 15px;">
+      <a href="#om-oss" class="kcc-navlink">Om oss</a>
+      <a href="#event" class="kcc-navlink">Event</a>
+      <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-navlink">Webshop</a>
+      <a href="https://www.facebook.com/groups/794040558638195/" target="_blank" rel="noopener" class="kcc-navcta" style="color: #040414; background: #ecb44c; padding: 9px 18px; border-radius: 999px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 16px rgba(236,180,76,.45);">Bli medlem</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <header id="hem" style="position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; background: radial-gradient(ellipse 120% 70% at 50% 115%, #fdf3df 0%, #fefaf2 45%, #ffffff 75%);">
+
+    <!-- parallax glow layers -->
+    <div id="kcc-par-1" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 30% at 50% 88%, rgba(236,180,76,.28), transparent 70%);"></div>
+    <div id="kcc-par-2" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle 340px at 18% 30%, rgba(236,180,76,.10), transparent 70%), radial-gradient(circle 300px at 84% 22%, rgba(4,4,20,.05), transparent 70%);"></div>
+
+    <!-- soft ground fade -->
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 12%; background: linear-gradient(180deg, transparent, rgba(255,255,255,.95) 55%); pointer-events: none;"></div>
+
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 96px 24px 40px; animation: kccFloat 7s ease-in-out infinite;">
+      <img src="assets/logo-main.png" alt="Kungsbacka Car Community" style="width: min(560px, 82vw); height: auto; filter: drop-shadow(0 10px 30px rgba(236,180,76,.30));">
+      <p style="margin: 6px 0 0; font-size: clamp(17px, 2.2vw, 22px); color: #3c3c3c; letter-spacing: .14em; text-transform: uppercase;">En community. bilintresserade.&nbsp;<span style="color: rgb(201, 146, 46); font-weight: 700;">Kungsbacka.</span></p>
+      <div style="display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
+        <a href="#event" class="kcc-hero-cta" style="background: #ecb44c; color: #040414; font-weight: 700; font-size: 17px; padding: 15px 34px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 22px rgba(236,180,76,.5);">Nästa träff →</a>
+        <a href="https://www.instagram.com/kungsbackacarcommunity" target="_blank" rel="noopener" class="kcc-hero-ghost" style="border: 1px solid rgba(4,4,20,.25); color: #040414; font-weight: 600; font-size: 17px; padding: 15px 34px; border-radius: 999px; text-decoration: none; background: rgba(255,255,255,.6);">@kungsbackacarcommunity</a>
+      </div>
+    </div>
+
+    <div style="position: absolute; bottom: 26px; left: 50%; margin-left: -13px; width: 26px; height: 42px; border: 2px solid rgba(4,4,20,.25); border-radius: 14px; z-index: 2;">
+      <div style="width: 4px; height: 8px; border-radius: 2px; background: #ecb44c; margin: 7px auto 0; animation: kccScroll 1.8s ease-in-out infinite;"></div>
+    </div>
+  </header>
+
+  <!-- ══════════ OM OSS ══════════ -->
+  <section id="om-oss" class="kcc-reveal" style="position: relative; padding: 110px 24px; max-width: 1100px; margin: 0 auto;">
+    <p style="margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; text-align: center; font-weight: 700;">Om oss</p>
+    <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(30px, 4.4vw, 46px); margin: 0 auto 18px; text-align: center; max-width: 760px; line-height: 1.2; color: #040414;">En community för oss bilintresserade</h2>
+    <p style="max-width: 640px; margin: 0 auto 60px; text-align: center; color: #3c3c3c; font-size: 18px; line-height: 1.65;">Kungsbacka Car Community samlar bilentusiaster i Kungsbacka med omnejd — från original till fullblodsbyggen. Här delar vi träffar, projekt och passionen för allt som går på fyra hjul.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px;">
+      <div class="kcc-card" style="background: linear-gradient(160deg, #fdf6e8, #ffffff); border: 1px solid rgba(236,180,76,.35); border-radius: 18px; padding: 34px 28px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <div style="font-family: 'RobotoSlab', serif; font-size: 40px; color: #ecb44c;">01</div>
+        <h3 style="font-family: 'RobotoSlab', serif; font-size: 22px; margin: 12px 0 8px; color: #040414;">Träffar &amp; cruising</h3>
+        <p style="margin: 0; color: #3c3c3c; line-height: 1.6;">Regelbundna meets året runt — parkeringsträffar, kvällscruising och garagehäng när vädret tryter.</p>
+      </div>
+      <div class="kcc-card" style="background: linear-gradient(160deg, #fdf6e8, #ffffff); border: 1px solid rgba(236,180,76,.35); border-radius: 18px; padding: 34px 28px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <div style="font-family: 'RobotoSlab', serif; font-size: 40px; color: #ecb44c;">02</div>
+        <h3 style="font-family: 'RobotoSlab', serif; font-size: 22px; margin: 12px 0 8px; color: #040414;">Byggen &amp; kunskap</h3>
+        <p style="margin: 0; color: #3c3c3c; line-height: 1.6;">Visa upp ditt projekt, få hjälp med nästa steg och hitta folk som kan allt från mappning till lack.</p>
+      </div>
+      <div class="kcc-card" style="background: linear-gradient(160deg, #fdf6e8, #ffffff); border: 1px solid rgba(236,180,76,.35); border-radius: 18px; padding: 34px 28px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <div style="font-family: 'RobotoSlab', serif; font-size: 40px; color: #ecb44c;">03</div>
+        <h3 style="font-family: 'RobotoSlab', serif; font-size: 22px; margin: 12px 0 8px; color: #040414;">Gemenskap</h3>
+        <p style="margin: 0; color: #3c3c3c; line-height: 1.6;">Alla är välkomna — oavsett märke, budget eller om bilen står på pallbockar halva året.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EVENT ══════════ -->
+  <section id="event" class="kcc-reveal" style="position: relative; padding: 110px 24px; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(236,180,76,.10), transparent 70%);">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <p style="margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; text-align: center; font-weight: 700;">Kommande event</p>
+      <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(30px, 4.4vw, 46px); margin: 0 auto 14px; text-align: center; color: #040414;">Nästa gång vi ses</h2>
+      <p style="text-align: center; color: #3c3c3c; margin: 0 auto 44px; max-width: 560px; font-size: 17px; line-height: 1.6;">Alla event läggs upp och uppdateras i vår Facebook-grupp — klicka på ett event för tid, plats och anmälan.</p>
+
+      <!-- countdown (populated by JS) -->
+      <div id="kcc-countdown" style="display: flex; justify-content: center; gap: 18px; margin-bottom: 54px; flex-wrap: wrap;">
+        <div style="text-align: center; background: #ffffff; border: 1px solid rgba(236,180,76,.45); border-radius: 16px; padding: 18px 26px; min-width: 86px; box-shadow: 0 8px 26px rgba(236,180,76,.18);">
+          <div id="kcc-cd-days" style="font-family: 'RobotoSlab', serif; font-size: 40px; font-weight: 700; color: #c9922e;">0</div>
+          <div style="font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #3c3c3c;">dagar</div>
+        </div>
+        <div style="text-align: center; background: #ffffff; border: 1px solid rgba(236,180,76,.45); border-radius: 16px; padding: 18px 26px; min-width: 86px; box-shadow: 0 8px 26px rgba(236,180,76,.18);">
+          <div id="kcc-cd-hours" style="font-family: 'RobotoSlab', serif; font-size: 40px; font-weight: 700; color: #c9922e;">0</div>
+          <div style="font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #3c3c3c;">timmar</div>
+        </div>
+        <div style="text-align: center; background: #ffffff; border: 1px solid rgba(236,180,76,.45); border-radius: 16px; padding: 18px 26px; min-width: 86px; box-shadow: 0 8px 26px rgba(236,180,76,.18);">
+          <div id="kcc-cd-mins" style="font-family: 'RobotoSlab', serif; font-size: 40px; font-weight: 700; color: #c9922e;">0</div>
+          <div style="font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #3c3c3c;">minuter</div>
+        </div>
+      </div>
+
+      <div id="kcc-events" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px;">
+        <!-- event cards rendered by JS -->
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="https://www.facebook.com/groups/794040558638195/events" target="_blank" rel="noopener" class="kcc-event-all" style="display: inline-block; border: 2px solid #ecb44c; color: #c9922e; font-weight: 700; padding: 14px 32px; border-radius: 999px; text-decoration: none; font-size: 16px;">Se alla event på Facebook →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WEBSHOP ══════════ -->
+  <section id="webshop" class="kcc-reveal" style="padding: 110px 24px; background: linear-gradient(180deg, transparent, rgba(236,180,76,.08) 50%, transparent);">
+    <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 44px; align-items: center;">
+      <div>
+        <p style="margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; font-weight: 700;">Webshop</p>
+        <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(30px, 4.4vw, 44px); margin: 0 0 16px; line-height: 1.2; color: #040414;">Bär färgerna.<br>Respektera kronan.</h2>
+        <p style="color: #3c3c3c; font-size: 17px; line-height: 1.65; margin: 0 0 28px;">Officiell merch från Kungsbacka Car Community via Roader Wear — hoodies, t-shirts och kepsar med kronan på. Varje plagg stöttar communityt.</p>
+        <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-shop-cta" style="display: inline-block; background: #ecb44c; color: #040414; font-weight: 700; padding: 15px 34px; border-radius: 999px; text-decoration: none; font-size: 17px; box-shadow: 0 8px 26px rgba(236,180,76,.45);">Till webshopen →</a>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; aspect-ratio: 1 / 1;">
+        <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-shop-tile kcc-shop-tile-lg" style="grid-row: 1 / 3; position: relative; display: block; border-radius: 22px; overflow: hidden; box-shadow: 0 16px 44px rgba(4,4,20,.18);">
+          <img src="assets/shop/tshirt.webp" alt="Kungsbacka Car Community t-shirt" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          <span style="position: absolute; left: 14px; bottom: 12px; background: rgba(4,4,20,.72); color: #f2f0ea; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px;">T-shirt</span>
+        </a>
+        <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-shop-tile kcc-shop-tile-sm" style="position: relative; display: block; border-radius: 22px; overflow: hidden; box-shadow: 0 12px 34px rgba(4,4,20,.16);">
+          <img src="assets/shop/keps.webp" alt="Kungsbacka Car Community keps" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          <span style="position: absolute; left: 14px; bottom: 12px; background: rgba(4,4,20,.72); color: #f2f0ea; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px;">Keps</span>
+        </a>
+        <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-shop-tile kcc-shop-tile-sm" style="position: relative; display: block; border-radius: 22px; overflow: hidden; box-shadow: 0 12px 34px rgba(4,4,20,.16);">
+          <img src="assets/shop/hoodie.webp" alt="Kungsbacka Car Community hoodie" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          <span style="position: absolute; left: 14px; bottom: 12px; background: rgba(4,4,20,.72); color: #f2f0ea; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px;">Hoodie</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SAMARBETEN ══════════ -->
+  <section id="samarbeten" class="kcc-reveal" style="padding: 100px 24px; max-width: 1100px; margin: 0 auto;">
+    <p style="margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; text-align: center; font-weight: 700;">Samarbeten</p>
+    <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(30px, 4.4vw, 46px); margin: 0 auto 14px; text-align: center; color: #040414;">Företag som vi samarbetar med</h2>
+    <p style="text-align: center; color: #3c3c3c; margin: 0 auto 50px; max-width: 560px; font-size: 17px; line-height: 1.6;">Tack vare våra partners kan vi driva träffar och evenemang för hela communityt.</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 22px;">
+      <div class="kcc-partner" style="display: flex; flex: 0 1 250px; min-width: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 28px 22px; min-height: 110px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: #040414; line-height: 1.25;">Bilgruppen Halland</span>
+        <span style="font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #c9922e; font-weight: 700;">Bilhandel</span>
+      </div>
+      <a href="https://www.oljemagasinet.se/" target="_blank" rel="noopener" class="kcc-partner" style="display: flex; flex: 0 1 250px; min-width: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 28px 22px; min-height: 110px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: #040414; line-height: 1.25;">Oljemagasinet</span>
+        <span style="font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #c9922e; font-weight: 700;">Olja &amp; tillbehör</span>
+      </a>
+      <div class="kcc-partner" style="display: flex; flex: 0 1 250px; min-width: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 28px 22px; min-height: 110px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: #040414; line-height: 1.25;">Angelwax</span>
+        <span style="font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #c9922e; font-weight: 700;">Bilvård</span>
+      </div>
+      <div class="kcc-partner" style="display: flex; flex: 0 1 250px; min-width: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 28px 22px; min-height: 110px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: #040414; line-height: 1.25;">Car Care Products</span>
+        <span style="font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #c9922e; font-weight: 700;">Bilvård</span>
+      </div>
+      <div class="kcc-partner" style="display: flex; flex: 0 1 250px; min-width: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 28px 22px; min-height: 110px; box-shadow: 0 8px 28px rgba(4,4,20,.05);">
+        <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 21px; letter-spacing: .02em; color: #040414; line-height: 1.25;">Optituning</span>
+        <span style="font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #c9922e; font-weight: 700;">Motoroptimering</span>
+      </div>
+    </div>
+    <p style="text-align: center; color: #6d6b64; font-size: 15px; margin: 40px 0 0;">Vill ditt företag synas här? <a href="mailto:kontakt@kungsbackacarcommunity.se" style="color: #c9922e; font-weight: 700; text-decoration: none;">Hör av dig →</a></p>
+  </section>
+
+  <!-- ══════════ BLI MEDLEM ══════════ -->
+  <section id="medlem" class="kcc-reveal" style="position: relative; padding: 130px 24px; text-align: center; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(236,180,76,.18), transparent 70%); pointer-events: none;"></div>
+    <div style="position: relative; max-width: 660px; margin: 0 auto;">
+      <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(32px, 5vw, 50px); margin: 0 0 16px; line-height: 1.15; color: #040414;">Redo att rulla med oss?</h2>
+      <p style="color: #3c3c3c; font-size: 18px; line-height: 1.65; margin: 0 0 34px;">Gå med i Facebook-gruppen — det är där allt händer. Event, byggtrådar, köp &amp; sälj och folk som förstår varför avgassystemet kostade mer än semestern.</p>
+      <a href="https://www.facebook.com/groups/794040558638195/" target="_blank" rel="noopener" class="kcc-join-cta" style="display: inline-block; background: #ecb44c; color: #040414; font-weight: 700; padding: 17px 44px; border-radius: 999px; text-decoration: none; font-size: 19px; box-shadow: 0 10px 30px rgba(236,180,76,.5);">Gå med i gruppen →</a>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer style="border-top: 1px solid rgba(4,4,20,.08); padding: 54px 28px 40px; background: #fbf8f2;">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 36px; justify-content: space-between; align-items: flex-start;">
+      <div style="max-width: 300px;">
+        <img src="assets/logo-main.png" alt="Kungsbacka Car Community" style="width: 190px; height: auto;">
+        <p style="color: #6d6b64; font-size: 14px; line-height: 1.6; margin: 14px 0 0;">En ideell community för bilentusiaster i Kungsbacka med omnejd.</p>
+      </div>
+      <div style="display: flex; gap: 56px; flex-wrap: wrap;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="color: #c9922e; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;">Sidan</span>
+          <a href="#om-oss" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Om oss</a>
+          <a href="#event" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Event</a>
+          <a href="#samarbeten" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Samarbeten</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="color: #c9922e; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;">Följ oss</span>
+          <a href="https://www.instagram.com/kungsbackacarcommunity" target="_blank" rel="noopener" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Instagram</a>
+          <a href="https://www.facebook.com/groups/794040558638195/" target="_blank" rel="noopener" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Facebook-gruppen</a>
+          <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">Webshop</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="color: #c9922e; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;">Kontakt</span>
+          <a href="mailto:kontakt@kungsbackacarcommunity.se" class="kcc-flink" style="color: #3c3c3c; text-decoration: none; font-size: 15px;">kontakt@kungsbackacarcommunity.se</a>
+          <span style="color: #6d6b64; font-size: 15px;">Kungsbacka, Sverige</span>
+        </div>
+      </div>
+    </div>
+    <p style="text-align: center; color: #a5a29a; font-size: 13px; margin: 44px 0 0;">© <span id="kcc-year">2026</span> Kungsbacka Car Community</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var FB_EVENTS = "https://www.facebook.com/groups/794040558638195/events";
+  var MONTHS = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+  var WEEKDAYS = ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"];
+
+  var state = { now: Date.now(), fbEvents: null };
+
+  // ── footer year ──
+  document.getElementById("kcc-year").textContent = String(new Date().getFullYear());
+
+  // ── next weekday/hour occurrence (fallback recurring meets) ──
+  function nextOccurrence(weekday, hour) {
+    var d = new Date();
+    d.setHours(hour, 0, 0, 0);
+    var diff = (weekday - d.getDay() + 7) % 7;
+    if (diff === 0 && d.getTime() < Date.now()) diff = 7;
+    d.setDate(d.getDate() + diff);
+    return d;
+  }
+
+  function fmt(d) { return { day: String(d.getDate()), month: MONTHS[d.getMonth()] }; }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  // ── compute events + countdown target from state ──
+  function computeEvents() {
+    var events = null;
+    var targetTime = null;
+    var raw = state.fbEvents;
+
+    if (raw && raw.length) {
+      var parsed = raw
+        .map(function (e) {
+          var o = {};
+          for (var k in e) o[k] = e[k];
+          o.dt = new Date(e.date + "T" + (e.time || "12:00"));
+          return o;
+        })
+        .filter(function (e) { return !isNaN(e.dt.getTime()) && e.dt.getTime() > Date.now() - 6 * 36e5; })
+        .sort(function (a, b) { return a.dt - b.dt; })
+        .slice(0, 6);
+
+      if (parsed.length) {
+        events = parsed.map(function (e) {
+          return {
+            day: String(e.dt.getDate()),
+            month: MONTHS[e.dt.getMonth()],
+            title: e.title || "Event",
+            desc: e.desc || "",
+            meta: WEEKDAYS[e.dt.getDay()] + (e.time ? " " + e.time : "") + (e.place ? " · " + e.place : ""),
+            url: e.url || FB_EVENTS
+          };
+        });
+        targetTime = parsed[0].dt.getTime();
+      }
+    }
+
+    if (!events) {
+      var cruising = nextOccurrence(5, 19);
+      var meet = nextOccurrence(0, 14);
+      var garage = new Date(cruising.getTime() + 12 * 864e5);
+      var c = fmt(cruising), m = fmt(meet), g = fmt(garage);
+      events = [
+        { day: c.day, month: c.month, title: "Kvällscruising genom Kungsbacka", desc: "Samling vid stationen, sedan rullar vi kolonn genom stan och ut mot kusten.", meta: "Fredag 19:00 · Kungsbacka station", url: FB_EVENTS },
+        { day: m.day, month: m.month, title: "Söndagsträff — visa upp bygget", desc: "Öppen parkeringsträff. Ta med fikat, öppna huven och snacka bil.", meta: "Söndag 14:00 · Se plats i gruppen", url: FB_EVENTS },
+        { day: g.day, month: g.month, title: "Garagekväll: mekhjälp & planering", desc: "Vi hjälps åt med vinterprojekten och planerar säsongens större meets.", meta: "Tid & plats i Facebook-eventet", url: FB_EVENTS }
+      ];
+      targetTime = Math.min(cruising.getTime(), meet.getTime());
+    }
+
+    return { events: events, targetTime: targetTime };
+  }
+
+  function renderEvents(events) {
+    var html = events.map(function (ev) {
+      return '<a href="' + escapeHtml(ev.url) + '" target="_blank" rel="noopener" class="kcc-event" style="display: flex; gap: 20px; align-items: center; text-decoration: none; color: #3c3c3c; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 26px; box-shadow: 0 8px 28px rgba(4,4,20,.06);">'
+        + '<div style="flex-shrink: 0; text-align: center; background: rgba(236,180,76,.16); border-radius: 14px; padding: 12px 16px; min-width: 64px;">'
+        + '<div style="font-family: \'RobotoSlab\', serif; font-size: 30px; font-weight: 700; color: #c9922e; line-height: 1;">' + escapeHtml(ev.day) + '</div>'
+        + '<div style="font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: #3c3c3c; margin-top: 4px;">' + escapeHtml(ev.month) + '</div>'
+        + '</div>'
+        + '<div style="min-width: 0;">'
+        + '<h3 style="font-family: \'RobotoSlab\', serif; font-size: 19px; margin: 0 0 6px; color: #040414;">' + escapeHtml(ev.title) + '</h3>'
+        + '<p style="margin: 0; color: #3c3c3c; font-size: 15px; line-height: 1.5;">' + escapeHtml(ev.desc) + '</p>'
+        + '<p style="margin: 8px 0 0; color: #c9922e; font-size: 14px; font-weight: 700;">' + escapeHtml(ev.meta) + '</p>'
+        + '</div>'
+        + '</a>';
+    }).join("");
+    document.getElementById("kcc-events").innerHTML = html;
+  }
+
+  function renderCountdown(targetTime) {
+    var left = Math.max(0, targetTime - state.now);
+    document.getElementById("kcc-cd-days").textContent = String(Math.floor(left / 864e5));
+    document.getElementById("kcc-cd-hours").textContent = String(Math.floor((left % 864e5) / 36e5));
+    document.getElementById("kcc-cd-mins").textContent = String(Math.floor((left % 36e5) / 6e4));
+  }
+
+  function render() {
+    var r = computeEvents();
+    renderEvents(r.events);
+    renderCountdown(r.targetTime);
+  }
+
+  render();
+
+  // keep the countdown fresh (same 30s cadence as the design)
+  setInterval(function () { state.now = Date.now(); render(); }, 30000);
+
+  // ── events from data/events.json (upcoming only, sorted); falls back to recurring meets ──
+  fetch("data/events.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      if (j && Array.isArray(j.events) && j.events.length) {
+        state.fbEvents = j.events;
+        render();
+      }
+    })
+    .catch(function () {});
+
+  // ── parallax + brand reveal in nav after scroll begins ──
+  var p1 = document.getElementById("kcc-par-1");
+  var p2 = document.getElementById("kcc-par-2");
+  var brand = document.getElementById("kcc-brand");
+
+  function onScroll() {
+    var y = window.scrollY;
+    if (p1) p1.style.transform = "translateY(" + y * 0.25 + "px)";
+    if (p2) p2.style.transform = "translateY(" + y * 0.12 + "px)";
+    if (brand) {
+      var on = y > 60;
+      brand.style.opacity = on ? "1" : "0";
+      brand.style.transform = on ? "translateY(0)" : "translateY(-8px)";
+      brand.style.pointerEvents = on ? "auto" : "none";
+    }
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // ── scroll-reveal ──
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("kcc-in"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".kcc-reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".kcc-reveal").forEach(function (el) { el.classList.add("kcc-in"); });
+  }
+})();
+</script>
+</body>
+</html>

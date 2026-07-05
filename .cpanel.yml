@@ -1,0 +1,11 @@
+---
+# cPanel Git Version Control deployment.
+# När du pushar till repot kör cPanel dessa steg och kopierar sidan till public_html.
+#
+# Ligger sidan i en underdomän/underkatalog, peka DEPLOYPATH dit i stället.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kungsba4/public_html/
+    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp -R assets $DEPLOYPATH
+    - /bin/cp -R data $DEPLOYPATH
