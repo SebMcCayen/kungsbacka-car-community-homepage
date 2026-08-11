@@ -3,7 +3,9 @@
 # WordPress site), so it never fell back to index.html. This restores
 # index.html as the homepage. index.php is intentionally omitted so a stale
 # WordPress entry point can never be served if index.html is ever missing.
-DirectoryIndex index.html index.htm
+<IfModule mod_dir.c>
+    DirectoryIndex index.html index.htm
+</IfModule>
 
 # --- Hardening -------------------------------------------------------------
 # Defense-in-depth: refuse to serve source, config and version-control files
@@ -15,9 +17,9 @@ DirectoryIndex index.html index.htm
 
     # Block hidden files/dirs such as .git, .gitignore, .env — but keep
     # .well-known reachable so SSL/ACME certificate renewal still works.
-    RewriteRule "(^|/)\.(?!well-known/)" - [F]
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
 
     # Block source/config/doc file types if present in the doc root.
-    RewriteRule "\.(ya?ml|py|sh|bak|log|dist|ini)$" - [F]
+    RewriteRule \.(ya?ml|py|sh|bak|log|dist|ini)$ - [F,L]
 </IfModule>
 # ---------------------------------------------------------------------------
