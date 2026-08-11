@@ -6,10 +6,10 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/kungsba4/public_html/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp .htaccess $DEPLOYPATH
-    - /bin/cp -R assets $DEPLOYPATH
-    - /bin/cp -R data $DEPLOYPATH
+    - /bin/cp index.html "${DEPLOYPATH}"
+    - /bin/cp .htaccess "${DEPLOYPATH}"
+    - /bin/cp -R assets "${DEPLOYPATH}"
+    - /bin/cp -R data "${DEPLOYPATH}"
     # Webbservern körs som "nobody" och måste kunna läsa katalogen.
     # (Migrationen från WordPress satte fel grupp och 0750 -> 403/404.)
-    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/chmod 755 "${DEPLOYPATH}"
