@@ -22,5 +22,9 @@
     # Block source/config/doc file types if present in the doc root.
     # NC = case-insensitive, so .YML / .INI etc. are blocked too.
     RewriteRule \.(ya?ml|py|sh|bak|log|dist|ini)$ - [F,L,NC]
+
+    # This is a static site — refuse any leftover WordPress PHP file so it can
+    # never execute (if PHP is enabled) or leak as source (if it isn't).
+    RewriteRule \.(php[0-9]?|phtml|phar)$ - [F,L,NC]
 </IfModule>
 # ---------------------------------------------------------------------------
