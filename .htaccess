@@ -4,3 +4,20 @@
 # index.html as the homepage. index.php is intentionally omitted so a stale
 # WordPress entry point can never be served if index.html is ever missing.
 DirectoryIndex index.html index.htm
+
+# --- Hardening -------------------------------------------------------------
+# Defense-in-depth: refuse to serve source, config and version-control files
+# even if they end up in the document root (e.g. if the git clone lives inside
+# public_html). Everything is wrapped in <IfModule> so a missing module can
+# never 500 the site. Public data (assets/, data/*.json) is unaffected.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block hidden files/dirs such as .git, .gitignore, .env — but keep
+    # .well-known reachable so SSL/ACME certificate renewal still works.
+    RewriteRule "(^|/)\.(?!well-known/)" - [F]
+
+    # Block source/config/doc file types if present in the doc root.
+    RewriteRule "\.(ya?ml|py|sh|bak|log|dist|ini)$" - [F]
+</IfModule>
+# ---------------------------------------------------------------------------
