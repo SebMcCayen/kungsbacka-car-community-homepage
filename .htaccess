@@ -1,0 +1,33 @@
+# Serve the static homepage for directory ("/") requests.
+# The server's default directory index is index.php (a leftover from the old
+# WordPress site), so it never fell back to index.html. This restores
+# index.html as the homepage. index.php is intentionally omitted so a stale
+# WordPress entry point can never be served if index.html is ever missing.
+<IfModule mod_dir.c>
+    DirectoryIndex index.html index.htm
+</IfModule>
+
+# --- Hardening -------------------------------------------------------------
+# Defense-in-depth: refuse to serve source, config and version-control files
+# even if they end up in the document root (e.g. if the git clone lives inside
+# public_html). Everything is wrapped in <IfModule> so a missing module can
+# never 500 the site. Public data (assets/, data/*.json) is unaffected.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Keep ONLY the HTTP cert-validation dirs reachable (Let's Encrypt uses
+    # acme-challenge, cPanel/Sectigo AutoSSL uses pki-validation). Everything
+    # else hidden — .git, .env, /.well-known/config.yml, nested dotdirs — falls
+    # through to the block rule below.
+    RewriteRule ^\.well-known/(acme-challenge|pki-validation)/ - [L]
+    RewriteRule (^|/)\. - [F,L]
+
+    # Block source/config/doc file types if present in the doc root.
+    # NC = case-insensitive, so .YML / .INI etc. are blocked too.
+    RewriteRule \.(ya?ml|py|sh|bak|log|dist|ini)$ - [F,L,NC]
+
+    # This is a static site — refuse any leftover WordPress PHP file so it can
+    # never execute (if PHP is enabled) or leak as source (if it isn't).
+    RewriteRule \.(php[0-9]?|phtml|phar)$ - [F,L,NC]
+</IfModule>
+# ---------------------------------------------------------------------------
