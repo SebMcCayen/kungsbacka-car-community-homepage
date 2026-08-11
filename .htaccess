@@ -20,6 +20,7 @@
     RewriteRule (^|/)\.(?!well-known/) - [F,L]
 
     # Block source/config/doc file types if present in the doc root.
-    RewriteRule \.(ya?ml|py|sh|bak|log|dist|ini)$ - [F,L]
+    # NC = case-insensitive, so .YML / .INI etc. are blocked too.
+    RewriteRule \.(ya?ml|py|sh|bak|log|dist|ini)$ - [F,L,NC]
 </IfModule>
 # ---------------------------------------------------------------------------
