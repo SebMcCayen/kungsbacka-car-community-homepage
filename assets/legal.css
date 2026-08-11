@@ -42,7 +42,14 @@ a { color: #c9922e; }
   transition: box-shadow .3s ease;
 }
 .kcc-navcta:hover { box-shadow: 0 6px 26px rgba(236,180,76,.7); }
-@media (max-width: 640px) { .kcc-navlinks .kcc-navlink { display: none; } }
+/* På små skärmar: göm inga länkar — låt nav:en radbrytas så länkarna hamnar
+   på en egen rad under varumärket och förblir nåbara (matchar att index-nav:en
+   alltid visar sina länkar). */
+@media (max-width: 640px) {
+  .kcc-nav { flex-wrap: wrap; row-gap: 10px; padding: 12px 18px; }
+  .kcc-brand span { font-size: 14px; }
+  .kcc-navlinks { width: 100%; gap: 18px; font-size: 14px; justify-content: flex-start; }
+}
 
 /* ── DOKUMENT-LAYOUT ── */
 .kcc-doc-top {
