@@ -69,6 +69,8 @@ gick inte att länka in stabilt). Vill ni ha riktiga logotyper: lägg filerna i
 Bot-commiten från Instagram-flödet syncas ut på samma sätt som vanliga ändringar.
 Se cPanels guide: <https://docs.cpanel.net/cpanel/files/git-version-control/>
 
+<!-- Test PR: verifierar branch + PR-flödet mot detta repo. Kan tas bort. -->
+
 ## Länkar
 - Webshop (Roader Wear): <https://roaderwear.com/en/collections/kungsbacka-car-community>
 - Instagram: <https://www.instagram.com/kungsbackacarcommunity>
