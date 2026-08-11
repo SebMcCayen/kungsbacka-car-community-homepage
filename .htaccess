@@ -1,0 +1,5 @@
+# Serve the static homepage for directory ("/") requests.
+# The server's default directory index is index.php (a leftover from the old
+# WordPress site), so it never fell back to index.html. This restores
+# index.html as the homepage.
+DirectoryIndex index.html index.htm index.php
