@@ -15,9 +15,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Block hidden files/dirs such as .git, .gitignore, .env — but keep
-    # .well-known reachable so SSL/ACME certificate renewal still works.
-    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+    # Keep ONLY the root .well-known/ reachable (SSL/ACME cert renewal), then
+    # block every hidden file/dir (.git, .gitignore, .env, and any nested
+    # .well-known elsewhere in the tree).
+    RewriteRule ^\.well-known/ - [L]
+    RewriteRule (^|/)\. - [F,L]
 
     # Block source/config/doc file types if present in the doc root.
     # NC = case-insensitive, so .YML / .INI etc. are blocked too.
