@@ -15,10 +15,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Keep ONLY the root .well-known/ reachable (SSL/ACME cert renewal), then
-    # block every hidden file/dir (.git, .gitignore, .env, and any nested
-    # .well-known elsewhere in the tree).
-    RewriteRule ^\.well-known/ - [L]
+    # Keep ONLY the HTTP cert-validation dirs reachable (Let's Encrypt uses
+    # acme-challenge, cPanel/Sectigo AutoSSL uses pki-validation). Everything
+    # else hidden — .git, .env, /.well-known/config.yml, nested dotdirs — falls
+    # through to the block rule below.
+    RewriteRule ^\.well-known/(acme-challenge|pki-validation)/ - [L]
     RewriteRule (^|/)\. - [F,L]
 
     # Block source/config/doc file types if present in the doc root.
