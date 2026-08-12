@@ -60,6 +60,13 @@
   .kcc-flink { transition: color .3s ease; }
   .kcc-flink:hover { color: #c9922e; }
 
+  /* ── mobile nav: let the links wrap instead of clipping the CTA off-screen ── */
+  @media (max-width: 600px) {
+    #kcc-brand { display: none !important; }
+    .kcc-nav { padding-left: 14px !important; padding-right: 14px !important; }
+    .kcc-navlinks { flex-wrap: wrap; justify-content: flex-end; gap: 16px !important; row-gap: 10px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .kcc-reveal { transition: none; opacity: 1; transform: none; }
@@ -71,11 +78,11 @@
 <div style="font-family: 'SourceSans', 'Segoe UI', sans-serif; background: #ffffff; color: #3c3c3c; overflow-x: hidden;">
 
   <!-- ══════════ NAV ══════════ -->
-  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,0)); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);">
+  <nav class="kcc-nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,0)); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);">
     <a id="kcc-brand" href="#hem" style="display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .5s ease, transform .5s ease;">
       <span style="font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 16px; color: #040414; letter-spacing: .03em;">Kungsbacka Car Community</span>
     </a>
-    <div style="display: flex; align-items: center; gap: 26px; font-size: 15px;">
+    <div class="kcc-navlinks" style="display: flex; align-items: center; gap: 26px; font-size: 15px;">
       <a href="#om-oss" class="kcc-navlink">Om oss</a>
       <a href="#event" class="kcc-navlink">Event</a>
       <a href="https://roaderwear.com/en/collections/kungsbacka-car-community" target="_blank" rel="noopener" class="kcc-navlink">Webshop</a>
