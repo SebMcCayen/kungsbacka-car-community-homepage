@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kungsbacka Car Community">
 <meta property="og:locale" content="sv_SE">
-<meta property="og:title" content="Kungsbacka Car Community — bilträffar, cruising & bilgemenskap i Kungsbacka">
+<meta property="og:title" content="Kungsbacka Car Community — bilträffar, cruising &amp; bilgemenskap i Kungsbacka">
 <meta property="og:description" content="En community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap för alla bilentusiaster.">
 <meta property="og:url" content="https://kungsbackacarcommunity.se/">
 <meta property="og:image" content="https://kungsbackacarcommunity.se/assets/logo-main.png">
@@ -22,7 +22,7 @@
 
 <!-- Twitter / X card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kungsbacka Car Community — bilträffar, cruising & bilgemenskap i Kungsbacka">
+<meta name="twitter:title" content="Kungsbacka Car Community — bilträffar, cruising &amp; bilgemenskap i Kungsbacka">
 <meta name="twitter:description" content="En community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap.">
 <meta name="twitter:image" content="https://kungsbackacarcommunity.se/assets/logo-main.png">
 
@@ -449,10 +449,18 @@
 
   // ── inject Event structured data (JSON-LD) for upcoming events ──
   function injectEventLd(rawEvents) {
+    // mirror the visible grid exactly: upcoming only, sorted by date, max 6
     var items = rawEvents
       .map(function (e) {
         var dt = new Date(e.date + "T" + (e.time || "12:00"));
         if (isNaN(dt.getTime()) || dt.getTime() <= Date.now() - 6 * 36e5) return null;
+        return { e: e, dt: dt };
+      })
+      .filter(Boolean)
+      .sort(function (a, b) { return a.dt - b.dt; })
+      .slice(0, 6)
+      .map(function (x) {
+        var e = x.e;
         return {
           "@type": "Event",
           "name": e.title || "Event",
@@ -464,8 +472,7 @@
           "url": e.url || FB_EVENTS,
           "organizer": { "@type": "Organization", "name": "Kungsbacka Car Community", "url": "https://kungsbackacarcommunity.se/" }
         };
-      })
-      .filter(Boolean);
+      });
     if (!items.length) return;
     var el = document.getElementById("kcc-event-ld");
     if (!el) {
