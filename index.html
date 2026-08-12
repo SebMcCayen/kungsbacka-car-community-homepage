@@ -515,7 +515,7 @@
   var scrollTicking = false;
   function applyScroll() {
     scrollTicking = false;
-    var y = window.scrollY;
+    var y = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
     if (p1) p1.style.transform = "translateY(" + y * 0.25 + "px)";
     if (p2) p2.style.transform = "translateY(" + y * 0.12 + "px)";
     if (brand) {
