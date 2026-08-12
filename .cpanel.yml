@@ -12,6 +12,8 @@ deployment:
     - /bin/cp anvandarvillkor.html "${DEPLOYPATH}"
     - /bin/cp community-regler.html "${DEPLOYPATH}"
     - /bin/cp support.html "${DEPLOYPATH}"
+    - /bin/cp robots.txt "${DEPLOYPATH}"
+    - /bin/cp sitemap.xml "${DEPLOYPATH}"
     - /bin/cp .htaccess "${DEPLOYPATH}"
     - /bin/cp -R assets "${DEPLOYPATH}"
     - /bin/cp -R data "${DEPLOYPATH}"
