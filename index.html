@@ -3,9 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kungsbacka Car Community</title>
-<meta name="description" content="Kungsbacka Car Community — en community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap.">
+<title>Kungsbacka Car Community — bilträffar, cruising &amp; bilgemenskap i Kungsbacka</title>
+<meta name="description" content="Kungsbacka Car Community — en community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap för alla bilentusiaster.">
+<link rel="canonical" href="https://kungsbackacarcommunity.se/">
+<meta name="theme-color" content="#ecb44c">
 <link rel="icon" href="assets/logo-symbol.png">
+<link rel="apple-touch-icon" href="assets/logo-symbol.png">
+
+<!-- Open Graph (Facebook / link previews) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kungsbacka Car Community">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:title" content="Kungsbacka Car Community — bilträffar, cruising & bilgemenskap i Kungsbacka">
+<meta property="og:description" content="En community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap för alla bilentusiaster.">
+<meta property="og:url" content="https://kungsbackacarcommunity.se/">
+<meta property="og:image" content="https://kungsbackacarcommunity.se/assets/logo-main.png">
+<meta property="og:image:alt" content="Kungsbacka Car Community">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kungsbacka Car Community — bilträffar, cruising & bilgemenskap i Kungsbacka">
+<meta name="twitter:description" content="En community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap.">
+<meta name="twitter:image" content="https://kungsbackacarcommunity.se/assets/logo-main.png">
+
+<!-- Structured data: who this site is, for search engines & AI -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://kungsbackacarcommunity.se/#org",
+      "name": "Kungsbacka Car Community",
+      "url": "https://kungsbackacarcommunity.se/",
+      "logo": "https://kungsbackacarcommunity.se/assets/logo-main.png",
+      "image": "https://kungsbackacarcommunity.se/assets/logo-main.png",
+      "email": "kontakt@kungsbackacarcommunity.se",
+      "description": "En ideell community för bilentusiaster i Kungsbacka med omnejd — träffar, cruising, byggen och gemenskap.",
+      "areaServed": { "@type": "City", "name": "Kungsbacka" },
+      "location": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Kungsbacka", "addressCountry": "SE" } },
+      "sameAs": [
+        "https://www.facebook.com/groups/794040558638195/",
+        "https://www.instagram.com/kungsbackacarcommunity"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://kungsbackacarcommunity.se/#website",
+      "url": "https://kungsbackacarcommunity.se/",
+      "name": "Kungsbacka Car Community",
+      "inLanguage": "sv-SE",
+      "publisher": { "@id": "https://kungsbackacarcommunity.se/#org" }
+    }
+  ]
+}
+</script>
 <style>
   @font-face { font-family: 'RobotoSlab'; src: url('assets/RobotoSlab.woff') format('woff'); font-weight: 400 700; font-display: swap; }
   @font-face { font-family: 'SourceSans'; src: url('assets/SourceSans.otf') format('opentype'); font-display: swap; }
@@ -21,6 +73,9 @@
 
   .kcc-reveal { opacity: 0; transform: translateY(36px); transition: opacity 1s ease, transform 1s cubic-bezier(.16,1,.3,1); }
   .kcc-reveal.kcc-in { opacity: 1; transform: translateY(0); }
+
+  /* accessible + SEO heading, hidden visually (design uses the logo image) */
+  .kcc-visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
   /* ── hover states (from the design's style-hover) ── */
   .kcc-navlink { color: #3c3c3c; text-decoration: none; transition: color .3s ease; }
@@ -94,6 +149,7 @@
     <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 12%; background: linear-gradient(180deg, transparent, rgba(255,255,255,.95) 55%); pointer-events: none;"></div>
 
     <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 96px 24px 40px; animation: kccFloat 7s ease-in-out infinite;">
+      <h1 class="kcc-visually-hidden">Kungsbacka Car Community — bilträffar, cruising och gemenskap för bilintresserade i Kungsbacka med omnejd</h1>
       <img src="assets/logo-main.png" alt="Kungsbacka Car Community" style="width: min(560px, 82vw); height: auto; filter: drop-shadow(0 10px 30px rgba(236,180,76,.30));">
       <p style="margin: 6px 0 0; font-size: clamp(17px, 2.2vw, 22px); color: #3c3c3c; letter-spacing: .14em; text-transform: uppercase;">En community. bilintresserade.&nbsp;<span style="color: rgb(201, 146, 46); font-weight: 700;">Kungsbacka.</span></p>
       <div style="display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
@@ -157,6 +213,13 @@
       <div id="kcc-events" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px;">
         <!-- event cards rendered by JS -->
       </div>
+
+      <noscript>
+        <p style="text-align: center; color: #3c3c3c; font-size: 16px; line-height: 1.6; margin: 0;">
+          Våra kommande event — kvällscruising genom Kungsbacka, söndagsträffar och säsongens större meets — hittar du i
+          <a href="https://www.facebook.com/groups/794040558638195/events" style="color: #c9922e; font-weight: 700;">Facebook-gruppen</a>.
+        </p>
+      </noscript>
 
       <div style="text-align: center; margin-top: 40px;">
         <a href="https://www.facebook.com/groups/794040558638195/events" target="_blank" rel="noopener" class="kcc-event-all" style="display: inline-block; border: 2px solid #ecb44c; color: #c9922e; font-weight: 700; padding: 14px 32px; border-radius: 999px; text-decoration: none; font-size: 16px;">Se alla event på Facebook →</a>
@@ -384,6 +447,36 @@
   // keep the countdown fresh (same 30s cadence as the design)
   setInterval(function () { state.now = Date.now(); render(); }, 30000);
 
+  // ── inject Event structured data (JSON-LD) for upcoming events ──
+  function injectEventLd(rawEvents) {
+    var items = rawEvents
+      .map(function (e) {
+        var dt = new Date(e.date + "T" + (e.time || "12:00"));
+        if (isNaN(dt.getTime()) || dt.getTime() <= Date.now() - 6 * 36e5) return null;
+        return {
+          "@type": "Event",
+          "name": e.title || "Event",
+          "startDate": e.date + (e.time ? "T" + e.time : ""),
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
+          "description": e.desc || "",
+          "url": e.url || FB_EVENTS,
+          "organizer": { "@type": "Organization", "name": "Kungsbacka Car Community", "url": "https://kungsbackacarcommunity.se/" }
+        };
+      })
+      .filter(Boolean);
+    if (!items.length) return;
+    var el = document.getElementById("kcc-event-ld");
+    if (!el) {
+      el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = "kcc-event-ld";
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
+  }
+
   // ── events from data/events.json (upcoming only, sorted); falls back to recurring meets ──
   fetch("data/events.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -391,6 +484,7 @@
       if (j && Array.isArray(j.events) && j.events.length) {
         state.fbEvents = j.events;
         render();
+        injectEventLd(j.events);
       }
     })
     .catch(function () {});
