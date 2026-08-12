@@ -1,5 +1,5 @@
 {
-  "_instruktioner": "Lägg till era Facebook-event här. Sidan visar automatiskt bara KOMMANDE event, sorterade efter datum — gamla event kan lämnas kvar, de filtreras bort. Fält: title (rubrik), date (ÅÅÅÅ-MM-DD), time (HH:MM), place (plats), desc (kort beskrivning), url (länk till Facebook-eventet). Redigera filen direkt på GitHub (pennikonen) → Commit changes → sidan uppdateras vid nästa cPanel-synk.",
+  "_instruktioner": "Lägg till era Facebook-event här. Sidan visar automatiskt bara KOMMANDE event, sorterade efter datum — gamla event kan lämnas kvar, de filtreras bort. Fält: title (rubrik), date (ÅÅÅÅ-MM-DD), time (HH:MM), place (plats), desc (kort beskrivning), url (länk till Facebook-eventet). Redigera filen direkt på GitHub (pennikonen) → Commit changes → sidan uppdateras vid nästa cPanel-synk. OBS: event som publiceras i appen hamnar automatiskt i data/app-events.json och visas tillsammans med dessa — rör inte den filen; manuella event läggs fortfarande här.",
   "events": [
     {
       "title": "Kvällscruising genom Kungsbacka",

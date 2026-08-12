@@ -396,7 +396,9 @@
             title: e.title || "Event",
             desc: e.desc || "",
             meta: WEEKDAYS[e.dt.getDay()] + (e.time ? " " + e.time : "") + (e.place ? " · " + e.place : ""),
-            url: e.url || FB_EVENTS
+            // app events link to their public event page when the backend provides one; manual events fall back to the FB group
+            url: e.source === "app" ? (e.url || null) : (e.url || FB_EVENTS),
+            fromApp: e.source === "app"
           };
         });
         targetTime = parsed[0].dt.getTime();
@@ -421,7 +423,13 @@
 
   function renderEvents(events) {
     var html = events.map(function (ev) {
-      return '<a href="' + escapeHtml(ev.url) + '" target="_blank" rel="noopener" class="kcc-event" style="display: flex; gap: 20px; align-items: center; text-decoration: none; color: #3c3c3c; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 26px; box-shadow: 0 8px 28px rgba(4,4,20,.06);">'
+      // app-published events link to their public event page (url from the backend) and carry a
+      // "Detaljer i appen" tag; without a url the card is a plain non-linked div
+      var cardStyle = 'display: flex; gap: 20px; align-items: center; text-decoration: none; color: #3c3c3c; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 26px; box-shadow: 0 8px 28px rgba(4,4,20,.06);';
+      var open = ev.url
+        ? '<a href="' + escapeHtml(ev.url) + '" target="_blank" rel="noopener" class="kcc-event" style="' + cardStyle + '">'
+        : '<div class="kcc-event" style="' + cardStyle + '">';
+      return open
         + '<div style="flex-shrink: 0; text-align: center; background: rgba(236,180,76,.16); border-radius: 14px; padding: 12px 16px; min-width: 64px;">'
         + '<div style="font-family: \'RobotoSlab\', serif; font-size: 30px; font-weight: 700; color: #c9922e; line-height: 1;">' + escapeHtml(ev.day) + '</div>'
         + '<div style="font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: #3c3c3c; margin-top: 4px;">' + escapeHtml(ev.month) + '</div>'
@@ -430,8 +438,11 @@
         + '<h3 style="font-family: \'RobotoSlab\', serif; font-size: 19px; margin: 0 0 6px; color: #040414;">' + escapeHtml(ev.title) + '</h3>'
         + '<p style="margin: 0; color: #3c3c3c; font-size: 15px; line-height: 1.5;">' + escapeHtml(ev.desc) + '</p>'
         + '<p style="margin: 8px 0 0; color: #c9922e; font-size: 14px; font-weight: 700;">' + escapeHtml(ev.meta) + '</p>'
+        + (ev.fromApp
+          ? '<span style="display: inline-block; margin-top: 10px; border: 1px solid rgba(236,180,76,.45); background: rgba(236,180,76,.16); color: #c9922e; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px;">Detaljer i appen</span>'
+          : '')
         + '</div>'
-        + '</a>';
+        + (ev.url ? '</a>' : '</div>');
     }).join("");
     document.getElementById("kcc-events").innerHTML = html;
   }
@@ -479,7 +490,7 @@
           "eventStatus": "https://schema.org/EventScheduled",
           "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
           "description": e.desc || "",
-          "url": e.url || FB_EVENTS,
+          "url": e.url || (e.source === "app" ? "https://kungsbackacarcommunity.se/#event" : FB_EVENTS),
           "organizer": { "@id": "https://kungsbackacarcommunity.se/#org" }
         };
       });
@@ -494,14 +505,23 @@
     el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
   }
 
-  // ── events from data/events.json (upcoming — with a 6h grace window — sorted); falls back to recurring meets ──
-  fetch("data/events.json", { cache: "no-store" })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (j) {
-      if (j && Array.isArray(j.events) && j.events.length) {
-        state.fbEvents = j.events;
+  // ── events from data/events.json (hand-edited) + data/app-events.json (written by the app's backend),
+  //    merged, upcoming — with a 6h grace window — sorted; falls back to recurring meets.
+  //    app-events.json is fetched tolerantly: missing/broken file must never break the section. ──
+  function fetchEventList(url) {
+    return fetch(url, { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { return (j && Array.isArray(j.events)) ? j.events : []; })
+      .catch(function () { return []; });
+  }
+
+  Promise.all([fetchEventList("data/events.json"), fetchEventList("data/app-events.json")])
+    .then(function (lists) {
+      var merged = lists[0].concat(lists[1]);
+      if (merged.length) {
+        state.fbEvents = merged;
         render();
-        injectEventLd(j.events);
+        injectEventLd(merged);
       }
     })
     .catch(function () {});
