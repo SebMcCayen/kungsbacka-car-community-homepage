@@ -7,8 +7,8 @@
 <meta name="description" content="Kungsbacka Car Community — en community för bilintresserade i Kungsbacka med omnejd. Träffar, cruising, byggen och gemenskap.">
 <link rel="icon" href="assets/logo-symbol.png">
 <style>
-  @font-face { font-family: 'RobotoSlab'; src: url('assets/RobotoSlab.woff') format('woff'); font-weight: 400 700; font-display: swap; }
-  @font-face { font-family: 'SourceSans'; src: url('assets/SourceSans.otf') format('opentype'); font-display: swap; }
+  @font-face { font-family: 'RobotoSlab'; src: url('assets/RobotoSlab.woff2') format('woff2'), url('assets/RobotoSlab.woff') format('woff'); font-weight: 400 700; font-display: swap; }
+  @font-face { font-family: 'SourceSans'; src: url('assets/SourceSans.woff2') format('woff2'), url('assets/SourceSans.otf') format('opentype'); font-display: swap; }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -94,7 +94,7 @@
     <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 12%; background: linear-gradient(180deg, transparent, rgba(255,255,255,.95) 55%); pointer-events: none;"></div>
 
     <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 96px 24px 40px; animation: kccFloat 7s ease-in-out infinite;">
-      <img src="assets/logo-main.png" alt="Kungsbacka Car Community" style="width: min(560px, 82vw); height: auto; filter: drop-shadow(0 10px 30px rgba(236,180,76,.30));">
+      <img src="assets/logo-main.png" alt="Kungsbacka Car Community" width="2400" height="1800" fetchpriority="high" style="width: min(560px, 82vw); height: auto; filter: drop-shadow(0 10px 30px rgba(236,180,76,.30));">
       <p style="margin: 6px 0 0; font-size: clamp(17px, 2.2vw, 22px); color: #3c3c3c; letter-spacing: .14em; text-transform: uppercase;">En community. bilintresserade.&nbsp;<span style="color: rgb(201, 146, 46); font-weight: 700;">Kungsbacka.</span></p>
       <div style="display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
         <a href="#event" class="kcc-hero-cta" style="background: #ecb44c; color: #040414; font-weight: 700; font-size: 17px; padding: 15px 34px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 22px rgba(236,180,76,.5);">Nästa träff →</a>
@@ -234,7 +234,7 @@
   <footer style="border-top: 1px solid rgba(4,4,20,.08); padding: 54px 28px 40px; background: #fbf8f2;">
     <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 36px; justify-content: space-between; align-items: flex-start;">
       <div style="max-width: 300px;">
-        <img src="assets/logo-main.png" alt="Kungsbacka Car Community" style="width: 190px; height: auto;">
+        <img src="assets/logo-main.png" alt="Kungsbacka Car Community" width="2400" height="1800" loading="lazy" style="width: 190px; height: auto;">
         <p style="color: #6d6b64; font-size: 14px; line-height: 1.6; margin: 14px 0 0;">En ideell community för bilentusiaster i Kungsbacka med omnejd.</p>
       </div>
       <div style="display: flex; gap: 56px; flex-wrap: wrap;">
@@ -375,7 +375,10 @@
 
   function render() {
     var r = computeEvents();
-    renderEvents(r.events);
+    // only rebuild the event cards when they actually change — the 30s tick
+    // below just needs to refresh the countdown, not churn the DOM.
+    var sig = JSON.stringify(r.events);
+    if (sig !== state.eventsSig) { renderEvents(r.events); state.eventsSig = sig; }
     renderCountdown(r.targetTime);
   }
 
@@ -400,7 +403,9 @@
   var p2 = document.getElementById("kcc-par-2");
   var brand = document.getElementById("kcc-brand");
 
-  function onScroll() {
+  var scrollTicking = false;
+  function applyScroll() {
+    scrollTicking = false;
     var y = window.scrollY;
     if (p1) p1.style.transform = "translateY(" + y * 0.25 + "px)";
     if (p2) p2.style.transform = "translateY(" + y * 0.12 + "px)";
@@ -411,7 +416,11 @@
       brand.style.pointerEvents = on ? "auto" : "none";
     }
   }
-  onScroll();
+  function onScroll() {
+    // coalesce scroll events to one style write per animation frame
+    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(applyScroll); }
+  }
+  applyScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
   // ── scroll-reveal ──
