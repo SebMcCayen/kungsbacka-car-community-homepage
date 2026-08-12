@@ -1,5 +1,5 @@
 {
-  "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över. Fält per event: title, date (ÅÅÅÅ-MM-DD), time (HH:MM), place, desc, url (länk till eventets publika sida), source ('app'). Manuella event läggs i data/events.json som vanligt.",
+  "_generated": "Denna fil skrivs automatiskt av appens backend och är sidans enda eventkälla. Redigera INTE för hand — ändringar skrivs över. Fält per event: title, date (ÅÅÅÅ-MM-DD), time (HH:MM), place, desc, url (länk till eventets publika sida), source ('app').",
   "generatedAt": "1970-01-01T00:00:00Z",
   "events": []
 }

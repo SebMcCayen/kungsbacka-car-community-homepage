@@ -14,7 +14,7 @@ Footer. Parallax-glow, scroll-animationer och en levande nedräkning till nästa
 | --- | --- |
 | `index.html` | Hela sidan (HTML/CSS/JS, inga byggsteg). |
 | `assets/` | Logotyper, typsnitt och webshop-bilder. |
-| `data/events.json` | Kommande event (redigeras för hand, se nedan). |
+| `data/app-events.json` | Kommande event (skrivs automatiskt av appens backend, se nedan). |
 | `data/instagram.json` | Instagram-flöde (fylls av GitHub Action, se nedan). |
 | `.github/workflows/instagram.yml` | Schemalagt Instagram-hämtning. |
 | `scripts/fetch_instagram.py` | Hämtscriptet (Instaloader). |
@@ -22,14 +22,15 @@ Footer. Parallax-glow, scroll-animationer och en levande nedräkning till nästa
 
 ## Dynamiskt innehåll
 
-### Event (Facebook)
-Facebook tillåter inte att gruppevent hämtas automatiskt (Groups-API:t är stängt).
-Eventen ligger därför i **`data/events.json`** — redigera filen direkt på GitHub
-(pennikonen → Commit changes). Sidan visar automatiskt bara kommande event,
-sorterade efter datum, och nedräkningen pekar på det närmaste. Är listan tom/otillgänglig
-faller sidan tillbaka på återkommande träffar (fredagscruising, söndagsträff m.m.).
+### Event (från appen)
+Eventen publiceras från Kungsbacka Car Community-appen: appens backend skriver
+**`data/app-events.json`** automatiskt — redigera INTE filen för hand, ändringar
+skrivs över. Sidan visar automatiskt bara kommande event, sorterade efter datum,
+och nedräkningen pekar på det närmaste. Saknas filen eller är listan tom visas ett
+tomt läge ("Garaget är tyst just nu…") — sektionen går aldrig sönder av en trasig fil.
 
-Fält per event: `title`, `date` (ÅÅÅÅ-MM-DD), `time` (HH:MM), `place`, `desc`, `url`.
+Fält per event: `title`, `date` (ÅÅÅÅ-MM-DD), `time` (HH:MM), `place`, `desc`,
+`url` (länk till eventets publika sida; utlämnad url ger ett olänkat kort), `source` (`app`).
 
 ### Instagram
 GitHub Action-flödet **`.github/workflows/instagram.yml`** kör varje morgon
