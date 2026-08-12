@@ -99,9 +99,6 @@
   .kcc-event { transition: box-shadow .4s ease, border-color .4s ease, transform .4s ease; }
   .kcc-event:hover { border-color: #ecb44c; box-shadow: 0 12px 38px rgba(236,180,76,.28); transform: translateY(-3px); }
 
-  .kcc-event-all { transition: background .3s ease, box-shadow .3s ease; }
-  .kcc-event-all:hover { background: rgba(236,180,76,.12); box-shadow: 0 8px 26px rgba(236,180,76,.3); }
-
   .kcc-shop-cta { transition: box-shadow .3s ease, transform .3s ease; }
   .kcc-shop-cta:hover { box-shadow: 0 12px 38px rgba(236,180,76,.7); transform: translateY(-2px); }
 
@@ -202,7 +199,7 @@
     <div style="max-width: 1100px; margin: 0 auto;">
       <p style="margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; text-align: center; font-weight: 700;">Kommande event</p>
       <h2 style="font-family: 'RobotoSlab', serif; font-size: clamp(30px, 4.4vw, 46px); margin: 0 auto 14px; text-align: center; color: #040414;">Nästa gång vi ses</h2>
-      <p style="text-align: center; color: #3c3c3c; margin: 0 auto 44px; max-width: 560px; font-size: 17px; line-height: 1.6;">Alla event läggs upp och uppdateras i vår Facebook-grupp — klicka på ett event för tid, plats och anmälan.</p>
+      <p style="text-align: center; color: #3c3c3c; margin: 0 auto 44px; max-width: 560px; font-size: 17px; line-height: 1.6;">Alla event publiceras från appen — klicka på ett event för tid, plats och detaljer.</p>
 
       <!-- countdown (populated by JS) -->
       <div id="kcc-countdown" style="display: flex; justify-content: center; gap: 18px; margin-bottom: 54px; flex-wrap: wrap;">
@@ -226,14 +223,9 @@
 
       <noscript>
         <p style="text-align: center; color: #3c3c3c; font-size: 16px; line-height: 1.6; margin: 0;">
-          Våra kommande event — kvällscruising genom Kungsbacka, söndagsträffar och säsongens större meets — hittar du i
-          <a href="https://www.facebook.com/groups/794040558638195/events" style="color: #c9922e; font-weight: 700;">Facebook-gruppen</a>.
+          Garaget är tyst just nu — inga inplanerade träffar att visa här. Håll motorn varm: nya event publiceras från <span style="color: #c9922e; font-weight: 700;">appen</span>.
         </p>
       </noscript>
-
-      <div style="text-align: center; margin-top: 40px;">
-        <a href="https://www.facebook.com/groups/794040558638195/events" target="_blank" rel="noopener" class="kcc-event-all" style="display: inline-block; border: 2px solid #ecb44c; color: #c9922e; font-weight: 700; padding: 14px 32px; border-radius: 999px; text-decoration: none; font-size: 16px;">Se alla event på Facebook →</a>
-      </div>
     </div>
   </section>
 
@@ -346,26 +338,13 @@
 (function () {
   "use strict";
 
-  var FB_EVENTS = "https://www.facebook.com/groups/794040558638195/events";
   var MONTHS = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
   var WEEKDAYS = ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"];
 
-  var state = { now: Date.now(), fbEvents: null };
+  var state = { now: Date.now(), appEvents: null };
 
   // ── footer year ──
   document.getElementById("kcc-year").textContent = String(new Date().getFullYear());
-
-  // ── next weekday/hour occurrence (fallback recurring meets) ──
-  function nextOccurrence(weekday, hour) {
-    var d = new Date();
-    d.setHours(hour, 0, 0, 0);
-    var diff = (weekday - d.getDay() + 7) % 7;
-    if (diff === 0 && d.getTime() < Date.now()) diff = 7;
-    d.setDate(d.getDate() + diff);
-    return d;
-  }
-
-  function fmt(d) { return { day: String(d.getDate()), month: MONTHS[d.getMonth()] }; }
 
   function escapeHtml(s) {
     return String(s == null ? "" : s)
@@ -373,11 +352,24 @@
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
-  // ── compute events + countdown target from state ──
+  // app-events.json is machine-generated but treated as untrusted input:
+  // only a well-formed absolute http(s) url may become a link — anything else counts as no-url
+  function safeUrl(u) {
+    if (typeof u !== "string") return null;
+    u = u.trim();
+    if (!u) return null;
+    try {
+      var p = new URL(u);
+      if (p.protocol === "http:" || p.protocol === "https:") return u;
+    } catch (err) {}
+    return null;
+  }
+
+  // ── compute events + countdown target from state (app-published events only) ──
   function computeEvents() {
-    var events = null;
+    var events = [];
     var targetTime = null;
-    var raw = state.fbEvents;
+    var raw = state.appEvents;
 
     if (raw && raw.length) {
       var parsed = raw
@@ -399,32 +391,35 @@
             title: e.title || "Event",
             desc: e.desc || "",
             meta: WEEKDAYS[e.dt.getDay()] + (e.time ? " " + e.time : "") + (e.place ? " · " + e.place : ""),
-            url: e.url || FB_EVENTS
+            // events link to their public event page when the backend provides a valid http(s) url
+            url: safeUrl(e.url)
           };
         });
         targetTime = parsed[0].dt.getTime();
       }
     }
 
-    if (!events) {
-      var cruising = nextOccurrence(5, 19);
-      var meet = nextOccurrence(0, 14);
-      var garage = new Date(cruising.getTime() + 12 * 864e5);
-      var c = fmt(cruising), m = fmt(meet), g = fmt(garage);
-      events = [
-        { day: c.day, month: c.month, title: "Kvällscruising genom Kungsbacka", desc: "Samling vid stationen, sedan rullar vi kolonn genom stan och ut mot kusten.", meta: "Fredag 19:00 · Kungsbacka station", url: FB_EVENTS },
-        { day: m.day, month: m.month, title: "Söndagsträff — visa upp bygget", desc: "Öppen parkeringsträff. Ta med fikat, öppna huven och snacka bil.", meta: "Söndag 14:00 · Se plats i gruppen", url: FB_EVENTS },
-        { day: g.day, month: g.month, title: "Garagekväll: mekhjälp & planering", desc: "Vi hjälps åt med vinterprojekten och planerar säsongens större meets.", meta: "Tid & plats i Facebook-eventet", url: FB_EVENTS }
-      ];
-      targetTime = Math.min(cruising.getTime(), meet.getTime());
-    }
-
     return { events: events, targetTime: targetTime };
   }
 
   function renderEvents(events) {
+    if (!events.length) {
+      // empty state — no upcoming app-published events
+      document.getElementById("kcc-events").innerHTML =
+        '<div style="grid-column: 1 / -1; text-align: center; background: #ffffff; border: 1px dashed rgba(236,180,76,.55); border-radius: 18px; padding: 44px 26px; box-shadow: 0 8px 28px rgba(4,4,20,.04);">'
+        + '<p style="margin: 0 0 8px; font-family: \'RobotoSlab\', serif; font-size: 20px; color: #040414;">Garaget är tyst just nu — inga inplanerade träffar.</p>'
+        + '<p style="margin: 0; color: #3c3c3c; font-size: 16px; line-height: 1.6;">Håll motorn varm — nya event publiceras från <span style="color: #c9922e; font-weight: 700;">appen</span>.</p>'
+        + '</div>';
+      return;
+    }
     var html = events.map(function (ev) {
-      return '<a href="' + escapeHtml(ev.url) + '" target="_blank" rel="noopener" class="kcc-event" style="display: flex; gap: 20px; align-items: center; text-decoration: none; color: #3c3c3c; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 26px; box-shadow: 0 8px 28px rgba(4,4,20,.06);">'
+      // cards link to the event's public page (url from the backend) and carry a
+      // "Detaljer i appen" tag; without a url the card is a plain non-linked div
+      var cardStyle = 'display: flex; gap: 20px; align-items: center; text-decoration: none; color: #3c3c3c; background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px; padding: 26px; box-shadow: 0 8px 28px rgba(4,4,20,.06);';
+      var open = ev.url
+        ? '<a href="' + escapeHtml(ev.url) + '" target="_blank" rel="noopener" class="kcc-event" style="' + cardStyle + '">'
+        : '<div class="kcc-event" style="' + cardStyle + '">';
+      return open
         + '<div style="flex-shrink: 0; text-align: center; background: rgba(236,180,76,.16); border-radius: 14px; padding: 12px 16px; min-width: 64px;">'
         + '<div style="font-family: \'RobotoSlab\', serif; font-size: 30px; font-weight: 700; color: #c9922e; line-height: 1;">' + escapeHtml(ev.day) + '</div>'
         + '<div style="font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: #3c3c3c; margin-top: 4px;">' + escapeHtml(ev.month) + '</div>'
@@ -433,13 +428,17 @@
         + '<h3 style="font-family: \'RobotoSlab\', serif; font-size: 19px; margin: 0 0 6px; color: #040414;">' + escapeHtml(ev.title) + '</h3>'
         + '<p style="margin: 0; color: #3c3c3c; font-size: 15px; line-height: 1.5;">' + escapeHtml(ev.desc) + '</p>'
         + '<p style="margin: 8px 0 0; color: #c9922e; font-size: 14px; font-weight: 700;">' + escapeHtml(ev.meta) + '</p>'
+        + '<span style="display: inline-block; margin-top: 10px; border: 1px solid rgba(236,180,76,.45); background: rgba(236,180,76,.16); color: #c9922e; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px;">Detaljer i appen</span>'
         + '</div>'
-        + '</a>';
+        + (ev.url ? '</a>' : '</div>');
     }).join("");
     document.getElementById("kcc-events").innerHTML = html;
   }
 
   function renderCountdown(targetTime) {
+    // no upcoming event → hide the countdown instead of showing zeros
+    document.getElementById("kcc-countdown").style.display = targetTime ? "flex" : "none";
+    if (!targetTime) return;
     var left = Math.max(0, targetTime - state.now);
     document.getElementById("kcc-cd-days").textContent = String(Math.floor(left / 864e5));
     document.getElementById("kcc-cd-hours").textContent = String(Math.floor((left % 864e5) / 36e5));
@@ -482,7 +481,7 @@
           "eventStatus": "https://schema.org/EventScheduled",
           "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
           "description": e.desc || "",
-          "url": e.url || FB_EVENTS,
+          "url": safeUrl(e.url) || "https://kungsbackacarcommunity.se/#event",
           "organizer": { "@id": "https://kungsbackacarcommunity.se/#org" }
         };
       });
@@ -497,17 +496,30 @@
     el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
   }
 
-  // ── events from data/events.json (upcoming — with a 6h grace window — sorted); falls back to recurring meets ──
-  fetch("data/events.json", { cache: "no-store" })
+  // ── events from data/app-events.json (written by the app's backend), upcoming — with a
+  //    6h grace window — sorted. Fetched tolerantly: a missing/broken file must never break
+  //    the section — it just shows the empty state. ──
+
+  // single choke point for untrusted entries: computeEvents() and injectEventLd() both
+  // assume plain objects with a parseable date — anything else is dropped here
+  function isSaneEvent(e) {
+    if (!e || typeof e !== "object" || Array.isArray(e)) return false;
+    if (typeof e.date !== "string") return false;
+    if (e.time != null && typeof e.time !== "string") return false;
+    return !isNaN(new Date(e.date + "T" + (e.time || "12:00")).getTime());
+  }
+
+  fetch("data/app-events.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (j) {
-      if (j && Array.isArray(j.events) && j.events.length) {
-        state.fbEvents = j.events;
+    .then(function (j) { return (j && Array.isArray(j.events)) ? j.events.filter(isSaneEvent) : []; })
+    .catch(function () { return []; })
+    .then(function (list) {
+      if (list.length) {
+        state.appEvents = list;
         render();
-        injectEventLd(j.events);
+        injectEventLd(list);
       }
-    })
-    .catch(function () {});
+    });
 
   // ── parallax + brand reveal in nav after scroll begins ──
   var p1 = document.getElementById("kcc-par-1");
