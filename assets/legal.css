@@ -48,7 +48,7 @@ a { color: #c9922e; }
 @media (max-width: 640px) {
   .kcc-nav { flex-wrap: wrap; row-gap: 10px; padding: 12px 18px; }
   .kcc-brand span { font-size: 14px; }
-  .kcc-navlinks { width: 100%; gap: 18px; font-size: 14px; justify-content: flex-start; }
+  .kcc-navlinks { width: 100%; gap: 18px; font-size: 14px; justify-content: flex-start; flex-wrap: wrap; }
 }
 
 /* ── DOKUMENT-LAYOUT ── */
@@ -111,14 +111,14 @@ a { color: #c9922e; }
   box-shadow: 0 8px 28px rgba(236,180,76,.14);
 }
 .kcc-callout h3 { margin-top: 0; }
-.kcc-callout :last-child { margin-bottom: 0; }
+.kcc-callout > :last-child { margin-bottom: 0; }
 
 /* neutral ruta (t.ex. kontakt) */
 .kcc-panel {
   background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px;
   padding: 22px 26px; margin: 24px 0; box-shadow: 0 8px 28px rgba(4,4,20,.05);
 }
-.kcc-panel :last-child { margin-bottom: 0; }
+.kcc-panel > :last-child { margin-bottom: 0; }
 
 /* ── FOOTER (samma som index) ── */
 .kcc-footer { border-top: 1px solid rgba(4,4,20,.08); padding: 54px 28px 40px; background: #fbf8f2; }
