@@ -449,7 +449,7 @@
 
   // ── inject Event structured data (JSON-LD) for upcoming events ──
   function injectEventLd(rawEvents) {
-    // mirror the visible grid exactly: upcoming only, sorted by date, max 6
+    // mirror the visible grid exactly: upcoming (with a 6h grace window), sorted by date, max 6
     var items = rawEvents
       .map(function (e) {
         var dt = new Date(e.date + "T" + (e.time || "12:00"));
@@ -470,7 +470,7 @@
           "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
           "description": e.desc || "",
           "url": e.url || FB_EVENTS,
-          "organizer": { "@type": "Organization", "name": "Kungsbacka Car Community", "url": "https://kungsbackacarcommunity.se/" }
+          "organizer": { "@id": "https://kungsbackacarcommunity.se/#org" }
         };
       });
     if (!items.length) return;
@@ -484,7 +484,7 @@
     el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
   }
 
-  // ── events from data/events.json (upcoming only, sorted); falls back to recurring meets ──
+  // ── events from data/events.json (upcoming — with a 6h grace window — sorted); falls back to recurring meets ──
   fetch("data/events.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) {
