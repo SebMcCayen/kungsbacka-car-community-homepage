@@ -403,6 +403,7 @@
   var p2 = document.getElementById("kcc-par-2");
   var brand = document.getElementById("kcc-brand");
 
+  var raf = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 16); };
   var scrollTicking = false;
   function applyScroll() {
     scrollTicking = false;
@@ -418,7 +419,7 @@
   }
   function onScroll() {
     // coalesce scroll events to one style write per animation frame
-    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(applyScroll); }
+    if (!scrollTicking) { scrollTicking = true; raf(applyScroll); }
   }
   applyScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
