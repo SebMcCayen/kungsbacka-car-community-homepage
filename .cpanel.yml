@@ -7,6 +7,7 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/kungsba4/public_html/
     - /bin/cp index.html "${DEPLOYPATH}"
+    - /bin/cp favicon.ico "${DEPLOYPATH}"
     - /bin/cp integritetspolicy.html "${DEPLOYPATH}"
     - /bin/cp radera-konto.html "${DEPLOYPATH}"
     - /bin/cp anvandarvillkor.html "${DEPLOYPATH}"
