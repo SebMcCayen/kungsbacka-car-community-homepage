@@ -1,0 +1,139 @@
+/* ───────────────────────────────────────────────────────────────
+   Kungsbacka Car Community — delade stilar för app- & juridiksidor.
+   Samma designspråk som index.html: helvitt med guldaccenter
+   (#ecb44c / #c9922e), RobotoSlab + SourceSans.
+   ─────────────────────────────────────────────────────────────── */
+
+@font-face { font-family: 'RobotoSlab'; src: url('RobotoSlab.woff') format('woff'); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: 'SourceSans'; src: url('SourceSans.otf') format('opentype'); font-display: swap; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #3c3c3c;
+  font-family: 'SourceSans', 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: #c9922e; }
+
+/* ── NAV (brand alltid synlig på undersidor) ── */
+.kcc-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.78));
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(4,4,20,.06);
+}
+.kcc-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.kcc-brand span {
+  font-family: 'RobotoSlab', serif; font-weight: 700; font-size: 16px;
+  color: #040414; letter-spacing: .03em;
+}
+.kcc-navlinks { display: flex; align-items: center; gap: 24px; font-size: 15px; }
+.kcc-navlink { color: #3c3c3c; text-decoration: none; transition: color .3s ease; }
+.kcc-navlink:hover { color: #c9922e; }
+.kcc-navcta {
+  color: #040414; background: #ecb44c; padding: 9px 18px; border-radius: 999px;
+  font-weight: 700; text-decoration: none; box-shadow: 0 4px 16px rgba(236,180,76,.45);
+  transition: box-shadow .3s ease;
+}
+.kcc-navcta:hover { box-shadow: 0 6px 26px rgba(236,180,76,.7); }
+/* På små skärmar: göm inga länkar — låt nav:en radbrytas så länkarna hamnar
+   på en egen rad under varumärket och förblir nåbara (matchar att index-nav:en
+   alltid visar sina länkar). */
+@media (max-width: 640px) {
+  .kcc-nav { flex-wrap: wrap; row-gap: 10px; padding: 12px 18px; }
+  .kcc-brand span { font-size: 14px; }
+  .kcc-navlinks { width: 100%; gap: 18px; font-size: 14px; justify-content: flex-start; flex-wrap: wrap; }
+}
+
+/* ── DOKUMENT-LAYOUT ── */
+.kcc-doc-top {
+  position: relative;
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(236,180,76,.14), transparent 70%);
+  padding: 130px 24px 30px;
+}
+.kcc-doc { max-width: 820px; margin: 0 auto; padding: 0 24px 90px; }
+/* Offsetta ankarhopp (innehållsförteckningen) för den fasta nav-baren så att
+   mål-rubriker inte hamnar delvis dolda under den. Värdet täcker både desktop-
+   och den radbrutna mobil-nav:en. */
+.kcc-doc [id] { scroll-margin-top: 96px; }
+.kcc-eyebrow {
+  margin: 0 0 10px; color: #c9922e; letter-spacing: .22em; text-transform: uppercase;
+  font-size: 13px; font-weight: 700;
+}
+.kcc-doc h1 {
+  font-family: 'RobotoSlab', serif; color: #040414; line-height: 1.18;
+  font-size: clamp(30px, 4.4vw, 44px); margin: 0 0 12px; max-width: 720px;
+}
+.kcc-meta { color: #6d6b64; font-size: 14px; margin: 0; }
+.kcc-lead { font-size: 18px; line-height: 1.7; color: #3c3c3c; margin: 22px 0 0; }
+
+.kcc-doc h2 {
+  font-family: 'RobotoSlab', serif; color: #040414; line-height: 1.25;
+  font-size: clamp(21px, 2.8vw, 27px); margin: 46px 0 12px;
+  padding-top: 10px; border-top: 1px solid rgba(4,4,20,.08);
+}
+.kcc-doc h3 {
+  font-family: 'RobotoSlab', serif; color: #040414; font-size: 18px; margin: 26px 0 8px;
+}
+.kcc-doc p { font-size: 16.5px; line-height: 1.72; margin: 0 0 14px; }
+.kcc-doc ul, .kcc-doc ol { font-size: 16.5px; line-height: 1.72; margin: 0 0 16px; padding-left: 22px; }
+.kcc-doc li { margin: 0 0 8px; }
+.kcc-doc strong { color: #040414; }
+.kcc-doc a { color: #c9922e; font-weight: 600; text-decoration: none; }
+.kcc-doc a:hover { text-decoration: underline; }
+
+/* ── innehållsförteckning ── */
+.kcc-toc {
+  background: linear-gradient(160deg, #fdf6e8, #ffffff);
+  border: 1px solid rgba(236,180,76,.35); border-radius: 18px;
+  padding: 22px 26px; margin: 30px 0 8px;
+  box-shadow: 0 8px 28px rgba(4,4,20,.05);
+}
+.kcc-toc p { margin: 0 0 10px; font-weight: 700; color: #040414; font-size: 14px;
+  letter-spacing: .14em; text-transform: uppercase; }
+.kcc-toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 30px; }
+.kcc-toc li { margin: 0 0 6px; }
+.kcc-toc a { color: #3c3c3c; font-weight: 600; text-decoration: none; }
+.kcc-toc a:hover { color: #c9922e; }
+@media (max-width: 560px) { .kcc-toc ol { columns: 1; } }
+
+/* ── guldruta / callout ── */
+.kcc-callout {
+  background: linear-gradient(160deg, #fdf6e8, #ffffff);
+  border: 1px solid rgba(236,180,76,.45); border-radius: 18px;
+  padding: 24px 26px; margin: 24px 0;
+  box-shadow: 0 8px 28px rgba(236,180,76,.14);
+}
+.kcc-callout h3 { margin-top: 0; }
+.kcc-callout > :last-child { margin-bottom: 0; }
+
+/* neutral ruta (t.ex. kontakt) */
+.kcc-panel {
+  background: #ffffff; border: 1px solid rgba(4,4,20,.10); border-radius: 18px;
+  padding: 22px 26px; margin: 24px 0; box-shadow: 0 8px 28px rgba(4,4,20,.05);
+}
+.kcc-panel > :last-child { margin-bottom: 0; }
+
+/* ── FOOTER (samma som index) ── */
+.kcc-footer { border-top: 1px solid rgba(4,4,20,.08); padding: 54px 28px 40px; background: #fbf8f2; }
+.kcc-footer-inner {
+  max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 36px;
+  justify-content: space-between; align-items: flex-start;
+}
+.kcc-footer img { width: 190px; height: auto; }
+.kcc-footer-cols { display: flex; gap: 48px; flex-wrap: wrap; }
+.kcc-footer-col { display: flex; flex-direction: column; gap: 10px; }
+.kcc-footer-col .kcc-col-h {
+  color: #c9922e; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
+}
+.kcc-flink { color: #3c3c3c; text-decoration: none; font-size: 15px; transition: color .3s ease; }
+.kcc-flink:hover { color: #c9922e; }
+.kcc-copy { text-align: center; color: #a5a29a; font-size: 13px; margin: 44px 0 0; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
