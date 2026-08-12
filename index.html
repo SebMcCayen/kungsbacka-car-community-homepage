@@ -496,9 +496,19 @@
   // ── events from data/app-events.json (written by the app's backend), upcoming — with a
   //    6h grace window — sorted. Fetched tolerantly: a missing/broken file must never break
   //    the section — it just shows the empty state. ──
+
+  // single choke point for untrusted entries: computeEvents() and injectEventLd() both
+  // assume plain objects with a parseable date — anything else is dropped here
+  function isSaneEvent(e) {
+    if (!e || typeof e !== "object" || Array.isArray(e)) return false;
+    if (typeof e.date !== "string") return false;
+    if (e.time != null && typeof e.time !== "string") return false;
+    return !isNaN(new Date(e.date + "T" + (e.time || "12:00")).getTime());
+  }
+
   fetch("data/app-events.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (j) { return (j && Array.isArray(j.events)) ? j.events : []; })
+    .then(function (j) { return (j && Array.isArray(j.events)) ? j.events.filter(isSaneEvent) : []; })
     .catch(function () { return []; })
     .then(function (list) {
       if (list.length) {
