@@ -1,24 +1,5 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över. Manuella event läggs i data/events.json som vanligt.",
-  "generatedAt": "2026-08-12T18:01:27.352Z",
-  "events": [
-    {
-      "title": "Testar träff för publik lansering på hemsida",
-      "date": "2026-08-13",
-      "time": "15:00",
-      "place": "",
-      "desc": "Detta ska synas i eventet som beskrivning.",
-      "url": "https://kcc-events.web.app/e/OEFUQRyqjfnEGHFh4gl0",
-      "source": "app"
-    },
-    {
-      "title": "Test #2",
-      "date": "2026-08-13",
-      "time": "15:05",
-      "place": "",
-      "desc": "Test",
-      "url": "https://kcc-events.web.app/e/dpyDrZyJ5M72CJQA9MVO",
-      "source": "app"
-    }
-  ]
+  "generatedAt": "2026-08-14T02:40:09.137Z",
+  "events": []
 }
