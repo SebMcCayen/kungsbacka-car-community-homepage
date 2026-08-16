@@ -632,7 +632,7 @@
     }
 
     function toggleButton(label, view, active) {
-      return '<button type="button" data-lb-view="' + view + '" style="cursor: pointer; border: 2px solid #ecb44c; border-radius: 999px; padding: 10px 22px; font-size: 15px; font-weight: 700; '
+      return '<button type="button" data-lb-view="' + view + '" aria-pressed="' + (active ? 'true' : 'false') + '" style="cursor: pointer; border: 2px solid #ecb44c; border-radius: 999px; padding: 10px 22px; font-size: 15px; font-weight: 700; '
         + (active ? 'background: #ecb44c; color: #040414;' : 'background: transparent; color: #c9922e;') + '">' + escapeHtml(label) + '</button>';
     }
 
