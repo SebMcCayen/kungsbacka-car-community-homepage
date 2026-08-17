@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-17T05:00:11.846Z",
+  "generatedAt": "2026-08-17T06:00:13.877Z",
   "alltime": {
     "crownPoints": [
       {
@@ -13,7 +13,7 @@
         "rank": 2,
         "displayName": "Junior",
         "avatarPath": "profileImages/OwQzu7dSmCYagA7Ku6rtXdXVO8J2/3f7b985f-142e-476f-8ed0-aa04fd43e59b.jpg",
-        "value": 1835
+        "value": 1935
       },
       {
         "rank": 3,
@@ -110,7 +110,7 @@
         "rank": 2,
         "displayName": "Junior",
         "avatarPath": "profileImages/OwQzu7dSmCYagA7Ku6rtXdXVO8J2/3f7b985f-142e-476f-8ed0-aa04fd43e59b.jpg",
-        "value": 1835
+        "value": 1935
       },
       {
         "rank": 3,
@@ -130,13 +130,13 @@
         "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 28999.271961864248
+        "value": 31544.1066339899
       },
       {
         "rank": 3,
         "displayName": "Junior",
         "avatarPath": "profileImages/OwQzu7dSmCYagA7Ku6rtXdXVO8J2/3f7b985f-142e-476f-8ed0-aa04fd43e59b.jpg",
-        "value": 25324.97456364543
+        "value": 31162.71810009899
       }
     ],
     "events": [],
