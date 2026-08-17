@@ -1,13 +1,13 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-17T07:00:11.093Z",
+  "generatedAt": "2026-08-17T08:00:14.538Z",
   "alltime": {
     "crownPoints": [
       {
         "rank": 1,
         "displayName": "Gt86_swe",
         "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
-        "value": 5090
+        "value": 5215
       },
       {
         "rank": 2,
@@ -17,9 +17,9 @@
       },
       {
         "rank": 3,
-        "displayName": "ogredani",
-        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 370
+        "displayName": "JoelEngström",
+        "avatarPath": "profileImages/9AuTjOyKllewKfBP7ywMxD59dds1/43db8b62-0422-443d-9a1f-424f0328916a.jpg",
+        "value": 395
       }
     ],
     "distance": [
@@ -104,7 +104,7 @@
         "rank": 1,
         "displayName": "Gt86_swe",
         "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
-        "value": 5090
+        "value": 5215
       },
       {
         "rank": 2,
@@ -114,9 +114,9 @@
       },
       {
         "rank": 3,
-        "displayName": "ogredani",
-        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 370
+        "displayName": "JoelEngström",
+        "avatarPath": "profileImages/9AuTjOyKllewKfBP7ywMxD59dds1/43db8b62-0422-443d-9a1f-424f0328916a.jpg",
+        "value": 395
       }
     ],
     "distance": [
