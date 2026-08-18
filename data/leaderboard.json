@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-18T13:00:12.141Z",
+  "generatedAt": "2026-08-18T14:00:16.919Z",
   "alltime": {
     "crownPoints": [
       {
@@ -27,13 +27,13 @@
         "rank": 1,
         "displayName": "Gt86_swe",
         "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
-        "value": 1599814.7559649595
+        "value": 1662870.8796190699
       },
       {
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 1012231.6540920413
+        "value": 1055376.888647816
       },
       {
         "rank": 3,
@@ -65,15 +65,15 @@
     "convoys": [
       {
         "rank": 1,
-        "displayName": "SebMcCayen",
-        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "displayName": "Gt86_swe",
+        "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
         "value": 6
       },
       {
         "rank": 2,
-        "displayName": "Gt86_swe",
-        "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
-        "value": 5
+        "displayName": "SebMcCayen",
+        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "value": 6
       }
     ],
     "streak": [
@@ -122,24 +122,31 @@
     "distance": [
       {
         "rank": 1,
+        "displayName": "Gt86_swe",
+        "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
+        "value": 163355.99564563375
+      },
+      {
+        "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
         "value": 102432.38863389444
       },
       {
-        "rank": 2,
-        "displayName": "Gt86_swe",
-        "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
-        "value": 100299.87199152345
-      },
-      {
         "rank": 3,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 76437.066422407
+        "displayName": "Junior",
+        "avatarPath": "profileImages/OwQzu7dSmCYagA7Ku6rtXdXVO8J2/3f7b985f-142e-476f-8ed0-aa04fd43e59b.jpg",
+        "value": 97985.34096601
       }
     ],
     "events": [],
-    "convoys": []
+    "convoys": [
+      {
+        "rank": 1,
+        "displayName": "Gt86_swe",
+        "avatarPath": "profileImages/cX77gHWzWmbRH4Us1F1zx4rsQVr1/0159193e-3d03-4889-b191-59f1b22fe4cc.jpg",
+        "value": 1
+      }
+    ]
   }
 }
