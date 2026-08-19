@@ -1,15 +1,5 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över. Manuella event läggs i data/events.json som vanligt.",
-  "generatedAt": "2026-08-18T10:02:43.671Z",
-  "events": [
-    {
-      "title": "KBA community goes to Amsterdam",
-      "date": "2026-08-18",
-      "time": "17:00",
-      "place": "",
-      "desc": "Feta bilar och van Gogh",
-      "url": "https://kcc-events.web.app/e/Sn8Hd1jfMFbEbSb0SAdS",
-      "source": "app"
-    }
-  ]
+  "generatedAt": "2026-08-19T02:40:10.972Z",
+  "events": []
 }
