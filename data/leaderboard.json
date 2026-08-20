@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-20T14:00:13.889Z",
+  "generatedAt": "2026-08-20T15:00:11.779Z",
   "alltime": {
     "crownPoints": [
       {
@@ -39,7 +39,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 461806.95963841706
+        "value": 464335.2513017764
       }
     ],
     "events": [
@@ -82,7 +82,14 @@
         "value": 1
       }
     ],
-    "waves": [],
+    "waves": [
+      {
+        "rank": 1,
+        "displayName": "simtronic73",
+        "avatarPath": null,
+        "value": 1
+      }
+    ],
     "streak": [
       {
         "rank": 1,
@@ -137,13 +144,13 @@
         "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 220081.53190689936
+        "value": 222609.82357025868
       },
       {
         "rank": 3,
         "displayName": "Junior",
         "avatarPath": "profileImages/OwQzu7dSmCYagA7Ku6rtXdXVO8J2/3f7b985f-142e-476f-8ed0-aa04fd43e59b.jpg",
-        "value": 155784.82291265455
+        "value": 182328.7258862203
       }
     ],
     "events": [],
@@ -161,6 +168,13 @@
         "value": 1
       }
     ],
-    "waves": []
+    "waves": [
+      {
+        "rank": 1,
+        "displayName": "simtronic73",
+        "avatarPath": null,
+        "value": 1
+      }
+    ]
   }
 }
