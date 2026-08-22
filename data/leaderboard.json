@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-22T07:00:08.958Z",
+  "generatedAt": "2026-08-22T08:00:21.963Z",
   "alltime": {
     "crownPoints": [
       {
@@ -19,7 +19,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 2695
+        "value": 2865
       }
     ],
     "distance": [
@@ -39,7 +39,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 490007.13513620704
+        "value": 500855.728194716
       }
     ],
     "events": [
@@ -85,14 +85,14 @@
     "waves": [
       {
         "rank": 1,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 1
+        "displayName": "ogredani",
+        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "value": 2
       },
       {
         "rank": 2,
-        "displayName": "ogredani",
-        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "displayName": "simtronic73",
+        "avatarPath": null,
         "value": 1
       },
       {
@@ -142,7 +142,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 2695
+        "value": 2865
       }
     ],
     "distance": [
@@ -156,7 +156,7 @@
         "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 248281.70740468925
+        "value": 259130.3004631982
       },
       {
         "rank": 3,
@@ -189,14 +189,14 @@
     "waves": [
       {
         "rank": 1,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 1
+        "displayName": "ogredani",
+        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "value": 2
       },
       {
         "rank": 2,
-        "displayName": "ogredani",
-        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "displayName": "simtronic73",
+        "avatarPath": null,
         "value": 1
       },
       {
