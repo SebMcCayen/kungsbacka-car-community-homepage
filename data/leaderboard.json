@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-08-22T13:01:03.988Z",
+  "generatedAt": "2026-08-22T15:00:05.807Z",
   "alltime": {
     "crownPoints": [
       {
@@ -33,13 +33,13 @@
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 1212882.3880974534
+        "value": 1217802.532329547
       },
       {
         "rank": 3,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 525485.4934659728
+        "displayName": "ogredani",
+        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "value": 527926.3972647414
       }
     ],
     "events": [
@@ -91,14 +91,14 @@
       },
       {
         "rank": 2,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 1
+        "displayName": "SebMcCayen",
+        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "value": 2
       },
       {
         "rank": 3,
-        "displayName": "SebMcCayen",
-        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "displayName": "simtronic73",
+        "avatarPath": null,
         "value": 1
       }
     ],
@@ -156,13 +156,13 @@
         "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 259130.3004631982
+        "value": 286200.96953322354
       },
       {
         "rank": 3,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 225680.30448869118
+        "value": 230600.4487207847
       }
     ],
     "events": [],
@@ -195,14 +195,14 @@
       },
       {
         "rank": 2,
-        "displayName": "simtronic73",
-        "avatarPath": null,
-        "value": 1
+        "displayName": "SebMcCayen",
+        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "value": 2
       },
       {
         "rank": 3,
-        "displayName": "SebMcCayen",
-        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
+        "displayName": "simtronic73",
+        "avatarPath": null,
         "value": 1
       }
     ]
