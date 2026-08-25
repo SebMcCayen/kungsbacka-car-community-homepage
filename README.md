@@ -75,3 +75,5 @@ Se cPanels guide: <https://docs.cpanel.net/cpanel/files/git-version-control/>
 - Instagram: <https://www.instagram.com/kungsbackacarcommunity>
 - Facebook-grupp: <https://www.facebook.com/groups/794040558638195/>
 - Kontakt: kontakt@kungsbackacarcommunity.se
+
+<!-- Test PR: verifierar GitHub-anslutning och PR-flöde. Kan tas bort utan påverkan på webbplatsen. -->
