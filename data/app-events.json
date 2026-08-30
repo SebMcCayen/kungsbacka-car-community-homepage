@@ -1,15 +1,5 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över. Manuella event läggs i data/events.json som vanligt.",
-  "generatedAt": "2026-08-29T09:03:32.043Z",
-  "events": [
-    {
-      "title": "Lördagsträff",
-      "date": "2026-08-29",
-      "time": "13:00",
-      "place": "Kungsbacka",
-      "desc": "Den 29e Augusti så kör vi ytterligare en Lördagsträff! Kom och träffa andra bilintresserade i området, spana in andra bilar eller passa på att köpa lite merch.…",
-      "url": "https://kcc-events.web.app/e/1oB0hjyqxW321iDf24GG",
-      "source": "app"
-    }
-  ]
+  "generatedAt": "2026-08-30T02:40:10.116Z",
+  "events": []
 }
