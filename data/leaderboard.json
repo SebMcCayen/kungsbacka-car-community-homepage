@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-09-03T09:00:39.986Z",
+  "generatedAt": "2026-09-03T11:00:28.799Z",
   "alltime": {
     "crownPoints": [
       {
@@ -39,7 +39,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 1139654.730274214
+        "value": 1174414.659873162
       }
     ],
     "events": [
@@ -154,15 +154,15 @@
       },
       {
         "rank": 2,
-        "displayName": "SoCivic 🚗",
-        "avatarPath": "profileImages/kMaqoRqqF2gIRZmPYUhQWXgXJl43/73577fb1-ff11-4100-861d-f1c727b3e1e9.jpg",
-        "value": 79322.65830575596
+        "displayName": "ogredani",
+        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "value": 83747.75718782045
       },
       {
         "rank": 3,
-        "displayName": "ogredani",
-        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 48987.82758887242
+        "displayName": "SoCivic 🚗",
+        "avatarPath": "profileImages/kMaqoRqqF2gIRZmPYUhQWXgXJl43/73577fb1-ff11-4100-861d-f1c727b3e1e9.jpg",
+        "value": 79322.65830575596
       }
     ],
     "events": [],
