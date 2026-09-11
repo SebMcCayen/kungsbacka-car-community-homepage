@@ -600,12 +600,13 @@
       var k = (Number(v) || 0) / 1000;
       return (k >= 100 ? String(Math.round(k)) : k.toFixed(1)) + " km";
     }
-    // All-time has all five categories; the month view drops "streak".
+    // All-time has all six categories; monthly views drop "streak".
     var CATS_ALL = [
       { key: "crownPoints", label: "Kronpoäng", fmt: intUnit(" p") },
       { key: "distance",    label: "Distans",   fmt: km },
       { key: "events",      label: "Event",     fmt: intUnit(" st") },
       { key: "convoys",     label: "Konvojer",  fmt: intUnit(" st") },
+      { key: "waves",       label: "Vinkningar",    fmt: intUnit(" st") },
       { key: "streak",      label: "Längsta streak", fmt: intUnit(" dgr") }
     ];
     var BADGE = ["#ecb44c", "#b8b8bf", "#cd8b52"]; // gold / silver / bronze
@@ -640,7 +641,7 @@
       var toggle = document.getElementById("kcc-lb-toggle");
       if (!grid || !lb.data) { return; }
       var isMonthly = lb.view === "month" || lb.view === "previousMonth";
-      var cats = isMonthly ? CATS_ALL.slice(0, 4) : CATS_ALL;
+      var cats = isMonthly ? CATS_ALL.slice(0, 5) : CATS_ALL;
       var block = lb.view === "month"
         ? lb.data.month
         : (lb.view === "previousMonth" ? lb.data.previousMonth : lb.data.alltime);
@@ -655,7 +656,13 @@
           + toggleButton("Föregående månad", "previousMonth", lb.view === "previousMonth")
           + toggleButton("Genom tiderna", "alltime", lb.view === "alltime");
         toggle.querySelectorAll("button").forEach(function (b) {
-          b.addEventListener("click", function () { lb.view = b.getAttribute("data-lb-view"); renderLeaderboard(); });
+          b.addEventListener("click", function () {
+            var view = b.getAttribute("data-lb-view");
+            lb.view = view;
+            renderLeaderboard();
+            var activeButton = toggle.querySelector("[data-lb-view=\\\"" + view + "\\"]");
+            if (activeButton) { activeButton.focus(); }
+          });
         });
       }
 
