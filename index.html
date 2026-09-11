@@ -674,7 +674,7 @@
       .then(function (j) {
         if (j && j.alltime) {
           lb.data = j;
-          lb.view = j.month ? "month" : (j.previousMonth ? "previousMonth" : "alltime");
+          lb.view = j.month && j.month.yyyymm ? "month" : (j.previousMonth && j.previousMonth.yyyymm ? "previousMonth" : "alltime");
           renderLeaderboard();
         }
       })
