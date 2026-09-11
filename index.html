@@ -660,7 +660,7 @@
             var view = b.getAttribute("data-lb-view");
             lb.view = view;
             renderLeaderboard();
-            var activeButton = toggle.querySelector("[data-lb-view=\\\"" + view + "\\"]");
+            var activeButton = toggle.querySelector('[data-lb-view="' + view + '"]');
             if (activeButton) { activeButton.focus(); }
           });
         });
