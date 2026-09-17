@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-09-17T14:00:21.827Z",
+  "generatedAt": "2026-09-17T15:00:39.583Z",
   "alltime": {
     "crownPoints": [
       {
@@ -39,7 +39,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 1551432.1050814607
+        "value": 1556485.4244866373
       }
     ],
     "events": [
@@ -162,7 +162,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 460765.2023961194
+        "value": 465818.5218012961
       }
     ],
     "events": [],
