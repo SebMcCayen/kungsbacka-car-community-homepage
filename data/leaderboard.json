@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-09-19T17:00:27.974Z",
+  "generatedAt": "2026-09-19T18:00:31.432Z",
   "alltime": {
     "crownPoints": [
       {
@@ -33,13 +33,13 @@
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 3578413.583040763
+        "value": 3601070.7608529674
       },
       {
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 1642206.1383027164
+        "value": 1647067.9082128396
       }
     ],
     "events": [
@@ -87,13 +87,13 @@
         "rank": 1,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 28
+        "value": 29
       },
       {
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 21
+        "value": 22
       },
       {
         "rank": 3,
@@ -142,7 +142,7 @@
         "rank": 3,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 790
+        "value": 800
       }
     ],
     "distance": [
@@ -156,13 +156,13 @@
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 1505388.7678283323
+        "value": 1528045.9456405365
       },
       {
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 551539.2356173748
+        "value": 556401.0055274981
       }
     ],
     "events": [
@@ -186,13 +186,13 @@
         "rank": 1,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 16
+        "value": 17
       },
       {
         "rank": 2,
         "displayName": "SebMcCayen",
         "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 11
+        "value": 12
       },
       {
         "rank": 3,
