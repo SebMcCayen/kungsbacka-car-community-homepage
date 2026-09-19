@@ -1,13 +1,13 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över. Manuella event läggs i data/events.json som vanligt.",
-  "generatedAt": "2026-09-10T12:56:30.325Z",
+  "generatedAt": "2026-09-19T10:09:16.996Z",
   "events": [
     {
       "title": "Lördagsträff",
       "date": "2026-09-19",
       "time": "13:00",
-      "place": "",
-      "desc": "Om vädret tillåter så kör vi en Lördagsträff där vi träffas. Plats: Pendelparkeringen i Varla, mitt emot OKQ8 Tid: 13.00-15.00",
+      "place": "Kungsbacka, Lindens Parkeringshus",
+      "desc": "Om vädret tillåter så kör vi en Lördagsträff där vi träffas. Plats: Lindens Parkeringshus i Kungsbacka Tid: 13.00-15.00",
       "url": "https://kcc-events.web.app/e/NETshD611nxr5w1a1tDc",
       "source": "app"
     }
