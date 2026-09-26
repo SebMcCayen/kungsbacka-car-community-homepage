@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-09-26T16:00:50.706Z",
+  "generatedAt": "2026-09-26T17:00:08.114Z",
   "alltime": {
     "crownPoints": [
       {
@@ -13,7 +13,7 @@
         "rank": 2,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 11203
+        "value": 11653
       },
       {
         "rank": 3,
@@ -39,7 +39,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 1795400.9263317103
+        "value": 1801245.1501721013
       }
     ],
     "events": [
@@ -140,9 +140,9 @@
       },
       {
         "rank": 3,
-        "displayName": "SebMcCayen",
-        "avatarPath": "profileImages/xV1gjtTwaCQDspVmPCUQa8D7tLs2/05fd2c2d-5739-49b3-b53c-7fa5b459ca15.png",
-        "value": 900
+        "displayName": "ogredani",
+        "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
+        "value": 918
       }
     ],
     "distance": [
@@ -162,7 +162,7 @@
         "rank": 3,
         "displayName": "ogredani",
         "avatarPath": "profileImages/QHRgNFNHHthaBnokFwIi1aGAKct2/b5be7834-f362-4281-8abf-4cc3d7c12893.jpg",
-        "value": 704734.0236463695
+        "value": 710578.2474867604
       }
     ],
     "events": [
