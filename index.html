@@ -405,10 +405,16 @@
     timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
     weekday: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
   });
+  var stockholmOffsetFormat = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Stockholm", timeZoneName: "shortOffset"
+  });
 
   function stockholmParts(dt) {
     var p = {};
     stockholmFormat.formatToParts(dt).forEach(function (part) { p[part.type] = part.value; });
+    stockholmOffsetFormat.formatToParts(dt).forEach(function (part) {
+      if (part.type === "timeZoneName") p.offset = part.value;
+    });
     p.date = p.year + "-" + p.month + "-" + p.day;
     p.time = p.hour + ":" + p.minute;
     p.weekday = p.weekday.charAt(0).toUpperCase() + p.weekday.slice(1);
@@ -463,8 +469,12 @@
       if (end) {
         // Include both dates (and years) whenever the interval crosses midnight.
         start = start || stockholmParts(dt);
-        meta = start.date === end.date ? start.weekday + " " + start.time + "–" + end.time
-          : start.label + " " + start.time + "–" + end.label + " " + end.time;
+        // A repeated autumn hour can otherwise look like a zero-length interval.
+        var offsetChanged = start.offset !== end.offset;
+        var startTime = start.time + (offsetChanged ? " " + start.offset : "");
+        var endTime = end.time + (offsetChanged ? " " + end.offset : "");
+        meta = start.date === end.date ? start.weekday + " " + startTime + "–" + endTime
+          : start.label + " " + startTime + "–" + end.label + " " + endTime;
       }
       return {
         day: start ? String(Number(start.day)) : String(dt.getDate()),

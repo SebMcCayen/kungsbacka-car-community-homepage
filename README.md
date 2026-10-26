@@ -36,6 +36,8 @@ Fält per event: `title`, `date` (ÅÅÅÅ-MM-DD), `time` (HH:MM), `place`, `des
 Backend kan dessutom skicka `startsAt` och `endsAt` som UTC ISO-tidsstämplar
 (exempel: `2026-10-30T17:00:00.000Z`). `date` och `time` behålls för äldre klienter.
 Med ISO-fälten visas start–slut i **Europe/Stockholm**, oavsett besökarens tidszon.
+Om UTC-offset skiljer sig mellan start och slut visas båda, till exempel
+`02:30 GMT+2–02:30 GMT+1` vid höstens tidsomställning. Annars behålls `HH:mm–HH:mm`.
 Om intervallet går över midnatt visas även datumen och årtalen. Eventet försvinner
 vid sluttiden, som också används i JSON-LD `endDate`. Kort och JSON-LD uppdateras
 tillsammans vid tidsgränser och när fliken blir synlig igen.

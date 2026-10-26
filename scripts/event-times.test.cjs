@@ -75,6 +75,7 @@ async function page(events, at = '2026-10-30T16:00:00Z', response = {}) {
 test('same-day Stockholm interval and canonical JSON-LD override legacy display fields', async () => {
   const p = await page([{ ...base, date: '2026-10-29', time: '09:00' }]);
   assert.match(p.cards(), /Fredag 18:00–21:00 · Kungsbacka/);
+  assert.doesNotMatch(p.cards(), /GMT[+-]/);
   assert.match(p.cards(), />30<\/div>/);
   assert.equal(p.ld()[0].startDate, base.startsAt);
   assert.equal(p.ld()[0].endDate, base.endsAt);
@@ -94,14 +95,27 @@ test('overnight, multiday and year rollover intervals include both local dates',
 
 test('Stockholm DST transitions and summer date badge are independent of visitor timezone', async () => {
   for (const [start, end, at, label, day] of [
-    ['2026-03-29T00:30:00Z', '2026-03-29T01:30:00Z', '2026-03-28T00:00:00Z', 'Söndag 01:30–03:30', '29'],
-    ['2026-10-24T21:30:00Z', '2026-10-25T02:30:00Z', '2026-10-24T00:00:00Z', 'Lördag 24 okt 2026 23:30–Söndag 25 okt 2026 03:30', '24'],
+    ['2026-03-29T00:30:00Z', '2026-03-29T01:30:00Z', '2026-03-28T00:00:00Z', 'Söndag 01:30 GMT+1–03:30 GMT+2', '29'],
+    ['2026-10-24T21:30:00Z', '2026-10-25T02:30:00Z', '2026-10-24T00:00:00Z', 'Lördag 24 okt 2026 23:30 GMT+2–Söndag 25 okt 2026 03:30 GMT+1', '24'],
     ['2026-06-01T22:30:00Z', '2026-06-02T00:00:00Z', '2026-06-01T00:00:00Z', 'Tisdag 00:30–02:00', '2']
   ]) {
     const p = await page([{ ...base, startsAt: start, endsAt: end }], at);
     assert.ok(p.cards().includes(label));
     assert.ok(p.cards().includes('>' + day + '</div>'));
   }
+});
+
+test('autumn repeated hour shows both offsets instead of a zero-looking interval', async () => {
+  const p = await page([{ ...base, startsAt: '2026-10-25T00:30:00Z', endsAt: '2026-10-25T01:30:00Z' }], '2026-10-25T01:00:00Z');
+  assert.match(p.cards(), /Söndag 02:30 GMT\+2–02:30 GMT\+1 · Kungsbacka/);
+  assert.doesNotMatch(p.cards(), /02:30–02:30/);
+  assert.equal(p.ld()[0].startDate, '2026-10-25T00:30:00.000Z');
+  assert.equal(p.ld()[0].endDate, '2026-10-25T01:30:00.000Z');
+  assert.equal(p.countdown(), 'none');
+  p.advance('2026-10-25T01:29:59.999Z');
+  assert.equal(p.ld().length, 1);
+  p.advance('2026-10-25T01:30:00Z');
+  assert.equal(p.ld().length, 0);
 });
 
 test('ongoing event survives beyond six hours and disappears exactly at end, including JSON-LD', async () => {
