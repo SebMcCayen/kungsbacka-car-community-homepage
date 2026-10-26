@@ -401,41 +401,93 @@
     return null;
   }
 
+  var stockholmFormat = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit",
+    weekday: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+  });
+  var stockholmOffsetFormat = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Stockholm", timeZoneName: "shortOffset"
+  });
+
+  function stockholmParts(dt) {
+    var p = {};
+    stockholmFormat.formatToParts(dt).forEach(function (part) { p[part.type] = part.value; });
+    stockholmOffsetFormat.formatToParts(dt).forEach(function (part) {
+      if (part.type === "timeZoneName") p.offset = part.value;
+    });
+    p.date = p.year + "-" + p.month + "-" + p.day;
+    p.time = p.hour + ":" + p.minute;
+    p.weekday = p.weekday.charAt(0).toUpperCase() + p.weekday.slice(1);
+    p.label = p.weekday + " " + Number(p.day) + " " + MONTHS[Number(p.month) - 1] + " " + p.year;
+    return p;
+  }
+
+  // Optional feed timestamps must be UTC ISO instants, never browser-local dates.
+  // Round-trip validation also rejects normalized dates such as February 30.
+  function isoInstant(value) {
+    if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value)) return null;
+    var dt = new Date(value);
+    if (isNaN(dt.getTime())) return null;
+    return dt.toISOString() === (value.length === 20 ? value.replace("Z", ".000Z") : value) ? dt : null;
+  }
+
+  function eventTiming(e) {
+    var isoStart = isoInstant(e.startsAt);
+    var start = isoStart || new Date(e.date + "T" + (e.time || "12:00"));
+    var end = isoInstant(e.endsAt);
+    if (end && end <= start) end = null;
+    return { start: start, end: end, isoStart: isoStart,
+      expires: end ? end.getTime() : start.getTime() + 6 * 36e5 };
+  }
+
   // ── compute events + countdown target from state (app-published events only) ──
   function computeEvents() {
     var events = [];
     var targetTime = null;
-    var raw = state.appEvents;
+    var nextChange = null;
+    var parsed = (state.appEvents || [])
+      .map(function (e) { return { e: e, timing: eventTiming(e) }; })
+      .filter(function (x) { return x.timing.expires > state.now; })
+      .sort(function (a, b) { return a.timing.start - b.timing.start; });
 
-    if (raw && raw.length) {
-      var parsed = raw
-        .map(function (e) {
-          var o = {};
-          for (var k in e) o[k] = e[k];
-          o.dt = new Date(e.date + "T" + (e.time || "12:00"));
-          return o;
-        })
-        .filter(function (e) { return !isNaN(e.dt.getTime()) && e.dt.getTime() > Date.now() - 6 * 36e5; })
-        .sort(function (a, b) { return a.dt - b.dt; })
-        .slice(0, 6);
+    // Search the full feed: six ongoing cards must not hide the next future start.
+    parsed.forEach(function (x) {
+      var start = x.timing.start.getTime();
+      if (start > state.now && targetTime === null) targetTime = start;
+      var change = start > state.now ? start : x.timing.expires;
+      if (nextChange === null || change < nextChange) nextChange = change;
+    });
+    parsed = parsed.slice(0, 6);
 
-      if (parsed.length) {
-        events = parsed.map(function (e) {
-          return {
-            day: String(e.dt.getDate()),
-            month: MONTHS[e.dt.getMonth()],
-            title: e.title || "Event",
-            desc: e.desc || "",
-            meta: WEEKDAYS[e.dt.getDay()] + (e.time ? " " + e.time : "") + (e.place ? " · " + e.place : ""),
-            // events link to their public event page when the backend provides a valid http(s) url
-            url: safeUrl(e.url)
-          };
-        });
-        targetTime = parsed[0].dt.getTime();
+    events = parsed.map(function (x) {
+      var e = x.e;
+      var dt = x.timing.start;
+      var start = x.timing.isoStart ? stockholmParts(dt) : null;
+      var end = x.timing.end ? stockholmParts(x.timing.end) : null;
+      var meta = start ? start.weekday + " " + start.time
+        : WEEKDAYS[dt.getDay()] + (e.time ? " " + e.time : "");
+      if (end) {
+        // Include both dates (and years) whenever the interval crosses midnight.
+        start = start || stockholmParts(dt);
+        // A repeated autumn hour can otherwise look like a zero-length interval.
+        var offsetChanged = start.offset !== end.offset;
+        var startTime = start.time + (offsetChanged ? " " + start.offset : "");
+        var endTime = end.time + (offsetChanged ? " " + end.offset : "");
+        meta = start.date === end.date ? start.weekday + " " + startTime + "–" + endTime
+          : start.label + " " + startTime + "–" + end.label + " " + endTime;
       }
-    }
+      return {
+        day: start ? String(Number(start.day)) : String(dt.getDate()),
+        month: MONTHS[start ? Number(start.month) - 1 : dt.getMonth()],
+        title: e.title || "Event",
+        desc: e.desc || "",
+        meta: meta + (e.place ? " · " + e.place : ""),
+        // events link to their public event page when the backend provides a valid http(s) url
+        url: safeUrl(e.url)
+      };
+    });
 
-    return { events: events, targetTime: targetTime };
+    return { events: events, targetTime: targetTime, nextChange: nextChange, parsed: parsed };
   }
 
   function renderEvents(events) {
@@ -482,67 +534,73 @@
   }
 
   function render() {
+    state.now = Date.now();
     var r = computeEvents();
     // only rebuild the event cards when they actually change — the 30s tick
     // below just needs to refresh the countdown, not churn the DOM.
     var sig = JSON.stringify(r.events);
     if (sig !== state.eventsSig) { renderEvents(r.events); state.eventsSig = sig; }
+    injectEventLd(r.parsed);
     renderCountdown(r.targetTime);
+    // Expire exactly at the end, including seconds/milliseconds between 30s ticks.
+    clearTimeout(state.boundaryTimer);
+    if (r.nextChange !== null) {
+      state.boundaryTimer = setTimeout(render, Math.min(r.nextChange - state.now, 2147483647));
+    }
   }
 
   render();
 
   // keep the countdown fresh (same 30s cadence as the design)
-  setInterval(function () { state.now = Date.now(); render(); }, 30000);
+  setInterval(render, 30000);
+  document.addEventListener("visibilitychange", render);
 
   // ── inject Event structured data (JSON-LD) for upcoming events ──
-  function injectEventLd(rawEvents) {
-    // mirror the visible grid exactly: upcoming (with a 6h grace window), sorted by date, max 6
-    var items = rawEvents
-      .map(function (e) {
-        var dt = new Date(e.date + "T" + (e.time || "12:00"));
-        if (isNaN(dt.getTime()) || dt.getTime() <= Date.now() - 6 * 36e5) return null;
-        return { e: e, dt: dt };
-      })
-      .filter(Boolean)
-      .sort(function (a, b) { return a.dt - b.dt; })
-      .slice(0, 6)
-      .map(function (x) {
-        var e = x.e;
-        return {
-          "@type": "Event",
-          "name": e.title || "Event",
-          "startDate": e.date + (e.time ? "T" + e.time : ""),
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
-          "description": e.desc || "",
-          "url": safeUrl(e.url) || "https://kungsbackacarcommunity.se/#event",
-          "organizer": { "@id": "https://kungsbackacarcommunity.se/#org" }
-        };
-      });
-    if (!items.length) return;
+  function injectEventLd(parsed) {
+    // Use the same selected entries as the cards, including ongoing events.
+    var items = parsed.map(function (x) {
+      var e = x.e;
+      var item = {
+        "@type": "Event",
+        "name": e.title || "Event",
+        "startDate": x.timing.isoStart ? x.timing.isoStart.toISOString() : e.date + (e.time ? "T" + e.time : ""),
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": { "@type": "Place", "name": e.place || "Kungsbacka", "address": "Kungsbacka, Sverige" },
+        "description": e.desc || "",
+        "url": safeUrl(e.url) || "https://kungsbackacarcommunity.se/#event",
+        "organizer": { "@id": "https://kungsbackacarcommunity.se/#org" }
+      };
+      if (x.timing.end) item.endDate = x.timing.end.toISOString();
+      return item;
+    });
     var el = document.getElementById("kcc-event-ld");
+    if (!items.length) {
+      if (el) el.remove();
+      return;
+    }
     if (!el) {
       el = document.createElement("script");
       el.type = "application/ld+json";
       el.id = "kcc-event-ld";
       document.head.appendChild(el);
     }
-    el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
+    var json = JSON.stringify({ "@context": "https://schema.org", "@graph": items });
+    if (el.textContent !== json) el.textContent = json;
   }
 
-  // ── events from data/app-events.json (written by the app's backend), upcoming — with a
-  //    6h grace window — sorted. Fetched tolerantly: a missing/broken file must never break
+  // ── events from data/app-events.json (written by the app's backend), until their end
+  //    (legacy: start + 6h). Fetched tolerantly: a missing/broken file must never break
   //    the section — it just shows the empty state. ──
 
   // single choke point for untrusted entries: computeEvents() and injectEventLd() both
-  // assume plain objects with a parseable date — anything else is dropped here
+  // assume app entries with a parseable start — invalid optional ISO fields fall back
   function isSaneEvent(e) {
     if (!e || typeof e !== "object" || Array.isArray(e)) return false;
+    if (e.source != null && e.source !== "app") return false;
     if (typeof e.date !== "string") return false;
     if (e.time != null && typeof e.time !== "string") return false;
-    return !isNaN(new Date(e.date + "T" + (e.time || "12:00")).getTime());
+    return !isNaN(eventTiming(e).start.getTime());
   }
 
   fetch("data/app-events.json", { cache: "no-store" })
@@ -553,7 +611,6 @@
       if (list.length) {
         state.appEvents = list;
         render();
-        injectEventLd(list);
       }
     });
 
