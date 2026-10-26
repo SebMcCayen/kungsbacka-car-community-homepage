@@ -25,12 +25,32 @@ Footer. Parallax-glow, scroll-animationer och en levande nedräkning till nästa
 ### Event (från appen)
 Eventen publiceras från Kungsbacka Car Community-appen: appens backend skriver
 **`data/app-events.json`** automatiskt — redigera INTE filen för hand, ändringar
-skrivs över. Sidan visar automatiskt bara kommande event, sorterade efter datum,
-och nedräkningen pekar på det närmaste. Saknas filen eller är listan tom visas ett
+skrivs över. Sidan visar upp till sex kommande eller pågående event, sorterade efter
+starttid. Nedräkningen pekar på nästa framtida start (även om andra event pågår).
+Saknas filen eller är listan tom visas ett
 tomt läge ("Garaget är tyst just nu…") — sektionen går aldrig sönder av en trasig fil.
 
 Fält per event: `title`, `date` (ÅÅÅÅ-MM-DD), `time` (HH:MM), `place`, `desc`,
 `url` (länk till eventets publika sida; utlämnad url ger ett olänkat kort), `source` (`app`).
+
+Backend kan dessutom skicka `startsAt` och `endsAt` som UTC ISO-tidsstämplar
+(exempel: `2026-10-30T17:00:00.000Z`). `date` och `time` behålls för äldre klienter.
+Med ISO-fälten visas start–slut i **Europe/Stockholm**, oavsett besökarens tidszon.
+Om intervallet går över midnatt visas även datumen och årtalen. Eventet försvinner
+vid sluttiden, som också används i JSON-LD `endDate`. Kort och JSON-LD uppdateras
+tillsammans vid tidsgränser och när fliken blir synlig igen.
+
+Äldre event utan ISO-fält behåller datum/tid-visningen och den tidigare marginalen
+på sex timmar efter start. Saknad eller ogiltig `startsAt` faller tillbaka till
+`date`/`time` (besökarens lokala tid, som tidigare; utan tid används kl. 12).
+Saknad/ogiltig `endsAt`, eller slut före/lika med start, ger sex timmars marginal
+från start och inget `endDate`. Felaktiga tilläggsfält slår inte ut resten av flödet.
+Event med annan explicit `source` än `app` ignoreras; äldre poster utan `source`
+kan fortfarande visas från appens flödesfil.
+
+Regressionstester utan extra beroenden: `node --test scripts/event-times.test.cjs`.
+Kör gärna även med annan besökartidszon, till exempel
+`TZ=Pacific/Honolulu node --test scripts/event-times.test.cjs`.
 
 ### Instagram
 GitHub Action-flödet **`.github/workflows/instagram.yml`** kör varje morgon
