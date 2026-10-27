@@ -29,7 +29,7 @@
   <div class="kcc-doc">
     <p class="kcc-eyebrow">Juridik</p>
     <h1>Integritetspolicy</h1>
-    <p class="kcc-meta">Gäller Kungsbacka Car Community, Driver och denna webbplats · Senast uppdaterad 25 oktober 2026</p>
+    <p class="kcc-meta">Gäller Kungsbacka Car Community, Driver och denna webbplats · Senast uppdaterad 27 oktober 2026</p>
     <p class="kcc-lead">Den här policyn beskriver vilka personuppgifter vi samlar in när du använder Kungsbacka Car Community eller Driver, varför vi gör det, vilka vi delar uppgifterna med och vilka rättigheter du har enligt dataskyddsförordningen (GDPR).</p>
   </div>
 </div>
@@ -63,15 +63,16 @@
   <h3>Kontouppgifter</h3>
   <p>När du skapar ett konto lagrar vi din e-postadress och den inloggningsuppgift du väljer (autentisering sker via Google Firebase Authentication). Samma konto används i Kungsbacka Car Community och Driver. Vi ser aldrig ditt lösenord i klartext.</p>
   <h3>Profil och fordon</h3>
-  <p>Uppgifter du själv lägger till: visningsnamn/smeknamn, biografi, profilbild samt information om dina bilar (t.ex. märke, modell, bilder och beskrivning i garaget). Visningsnamn, biografi, profilbild och garage delas mellan apparna. Driver har dessutom ett eget användarnamn och egna community-följningar.</p>
+  <p>Uppgifter du själv lägger till: visningsnamn/smeknamn, biografi, profilbild samt information om dina bilar (t.ex. märke, modell, bilder och beskrivning i garaget). Visningsnamn, biografi, profilbild och garage delas mellan apparna. Driver använder CarCommunitys visningsnamn och har egna community-följningar och en egen profilbanner. När det finns publik CarCommunity-statistik kan Driver visa bland annat XP och kronpoäng. Privata kontouppgifter och säkerhetsuppgifter visas inte som offentlig statistik.</p>
   <h3>Platsdata</h3>
+  <p><strong>Driver:</strong> appen begär inte telefonens GPS-position. Publika eventplatser, klubborter och platsnamn från äldre inlägg kan visas som del av innehållet. Vanliga nya inlägg har inget platsval. Beskrivningen av liveplatsdelning nedan gäller CarCommunity.</p>
   <p>Om du väljer att dela din plats behandlar vi din position i realtid för att visa dig på livekartan, i konvojer/gruppkörningar och för närhetsbaserade funktioner. <strong>Platsdelning är alltid ditt val</strong> och kan slås av när som helst. Se avsnitt 4.</p>
   <h3>Meddelanden och innehåll</h3>
   <p>Innehåll du skapar i apparna — meddelanden i direktchatt och gruppchatt, Driver-inlägg och svar, gilla-markeringar, bokmärken, följningar, blockeringar, rapporter, event-anmälningar och liknande — lagras så att funktionerna, säkerheten och modereringen ska fungera.</p>
   <h3>Foton</h3>
-  <p>Bilder du laddar upp (profil-, fordons- och Driver-inläggsbilder) lagras hos vår lagringsleverantör. Observera att bildfiler kan innehålla inbäddad metadata (t.ex. platskoordinater från kameran); ladda bara upp bilder du är bekväm med att dela.</p>
+  <p>Bilder du laddar upp (profil-, banner-, fordons- och Driver-inläggsbilder) lagras hos vår lagringsleverantör. Nya Driver-inläggsbilder förbereds i den uppdaterade appen genom komprimering och en ny bildfil utan EXIF-metadata. Andra bilder och äldre uppladdningar kan innehålla inbäddad metadata; ladda bara upp bilder du har rätt och är bekväm att dela.</p>
   <h3>Teknisk data och diagnostik</h3>
-  <p>För att appen ska vara säker och fungera samlar vi in teknisk grunddata som enhets- och apptyp samt fel- och diagnostikloggar. Vi använder Google Play Integrity och App Check för att skydda mot missbruk och obehörig åtkomst.</p>
+  <p>För att appen ska vara säker och fungera behandlar vi teknisk grunddata som enhets- och apptyp samt fel- och diagnostikloggar. Driver använder Firebase Crashlytics för kraschrapporter, stackspår, enhetsinformation och installationsrelaterade identifierare. Dessa rapporter kan skickas automatiskt; de är skilda från den lokala startdiagnostik som du själv kan kopiera till support. Firebase-installations- och sessionsdata samt push-token kan behandlas av de SDK:er som behövs för dessa funktioner. Vi använder Google Play Integrity och App Check för missbruksskydd.</p>
   <h3>Push-notiser</h3>
   <p>Om du tillåter aviseringar lagrar vi en enhetstoken (via Firebase Cloud Messaging) för att kunna skicka notiser om t.ex. event, meddelanden, konvojer, Driver-svar och nya följare.</p>
 
@@ -109,14 +110,15 @@
     <li><strong>Meddelanden</strong> kan raderas automatiskt efter en period beroende på funktion och inställning.</li>
     <li><strong>Driver-dataexporter</strong> är privata och tas bort automatiskt efter sju dagar.</li>
     <li><strong>Platsdata i realtid</strong> sparas inte längre än vad som behövs för att visa livekartan.</li>
-    <li><strong>När du raderar kontot</strong> tas dina personuppgifter bort, och eventuella säkerhetskopior gallras normalt inom 90 dagar.</li>
+    <li><strong>Driver-profilen:</strong> döljs direkt efter begäran och köas för radering av Driver-innehåll efter sju dagar, i ett dagligt jobb. Det gemensamma kontot påverkas inte av detta val.</li>
+    <li><strong>Hela det gemensamma kontot:</strong> inloggningen spärras direkt och permanent radering köas efter 30 dagar. Säkerhetskopior gallras normalt inom 90 dagar. Nödvändig säkerhets- och modereringshistorik, bevis på begäran och lagstadgade uppgifter kan behållas med begränsad åtkomst. Vissa gemensamma eventuppgifter kan behöva behandlas separat; se raderingsguiden.</li>
   </ul>
 
   <h2 id="rattigheter">8. Dina rättigheter enligt GDPR</h2>
   <p>Du har rätt att begära <strong>tillgång</strong> till dina uppgifter, <strong>rättelse</strong>, <strong>radering</strong>, <strong>begränsning</strong> och <strong>dataportabilitet</strong>, samt att <strong>invända</strong> mot viss behandling. Där behandlingen bygger på samtycke kan du när som helst återkalla det. Kontakta oss på <a href="mailto:kontakt@kungsbackacarcommunity.se">kontakt@kungsbackacarcommunity.se</a> så hjälper vi dig.</p>
 
   <h2 id="radera">9. Radera konto och uppgifter</h2>
-  <p>Du kan radera ditt gemensamma konto i Kungsbacka Car Community. I Driver kan du i stället radera endast Driver-profilen och dess Driver-innehåll; det gemensamma kontot, profilen och garaget finns då kvar. En utförlig steg-för-steg-guide för det gemensamma kontot finns på sidan <a href="radera-konto.html">Radera konto och data</a>.</p>
+  <p>I den uppdaterade Driver-versionen kan du välja mellan <strong>Radera Driver-profil</strong> och <strong>Radera hela kontot</strong> under Integritet. Det första valet behåller det gemensamma kontot och garaget; det andra gäller båda apparna. Du kan också begära radering via mejl utan att installera någon app. Steg, tidsramar och kvarvarande uppgifter beskrivs på <a href="radera-konto.html">Radera konto och data</a>.</p>
 
   <h2 id="sakerhet">10. Säkerhet</h2>
   <p>Vi använder etablerade tekniska och organisatoriska skyddsåtgärder — bl.a. krypterad överföring, åtkomstkontroller via säkerhetsregler och missbruksskydd (App Check / Play Integrity) — för att skydda dina uppgifter. Ingen tjänst är helt riskfri, men vi arbetar löpande med säkerheten.</p>
