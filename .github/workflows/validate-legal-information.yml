@@ -1,0 +1,27 @@
+name: Validate public legal information
+
+on:
+  pull_request:
+    paths:
+      - 'integritetspolicy.html'
+      - 'anvandarvillkor.html'
+      - 'radera-konto.html'
+      - 'support.html'
+      - 'assets/legal.css'
+      - 'scripts/legal-information.test.cjs'
+      - '.github/workflows/validate-legal-information.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  legal-information:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Check canonical public information
+        run: node --test scripts/legal-information.test.cjs
