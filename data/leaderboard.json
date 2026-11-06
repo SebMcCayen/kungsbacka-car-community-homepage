@@ -1,6 +1,6 @@
 {
   "_generated": "Denna fil skrivs automatiskt av appens backend. Redigera INTE för hand — ändringar skrivs över.",
-  "generatedAt": "2026-11-06T16:00:24.374Z",
+  "generatedAt": "2026-11-06T17:00:27.746Z",
   "alltime": {
     "crownPoints": [
       {
@@ -128,15 +128,15 @@
     "crownPoints": [
       {
         "rank": 1,
-        "displayName": "Lina",
-        "avatarPath": "profileImages/8P4Xj5Or2NbIThiwwsJmYnTOTlV2/1792d768-b2d6-4daf-82f1-60640545c106.jpg",
-        "value": 305
+        "displayName": "Jnymaan",
+        "avatarPath": "profileImages/lv1hfNnBmOcpEa9yFfw5sFTufvN2/3ee49aa2-5b40-48de-81f2-8bf5a26c2d78.jpg",
+        "value": 390
       },
       {
         "rank": 2,
-        "displayName": "Jnymaan",
-        "avatarPath": null,
-        "value": 125
+        "displayName": "Lina",
+        "avatarPath": "profileImages/8P4Xj5Or2NbIThiwwsJmYnTOTlV2/1792d768-b2d6-4daf-82f1-60640545c106.jpg",
+        "value": 305
       },
       {
         "rank": 3,
@@ -160,9 +160,9 @@
       },
       {
         "rank": 3,
-        "displayName": "Lina",
-        "avatarPath": "profileImages/8P4Xj5Or2NbIThiwwsJmYnTOTlV2/1792d768-b2d6-4daf-82f1-60640545c106.jpg",
-        "value": 10612.966464783489
+        "displayName": "simtronic73",
+        "avatarPath": null,
+        "value": 100378.61076679475
       }
     ],
     "events": [],
